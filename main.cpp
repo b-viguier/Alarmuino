@@ -2,6 +2,7 @@
 #include <cstring>
 
 #include "Ui/ScreenBuffer.h"
+#include "Ui/Page.h"
 
 int main() {
     WINDOW *wnd = initscr();
@@ -25,14 +26,18 @@ int main() {
     }
 
     Ui::ScreenBuffer screen;
-    memset(screen.buffer,' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
     int input;
+
+    Ui::Page homePage("Home");
 
     for (;;) {
         input = getch();
         if( input == 'q') {
             break;
         }
+
+        memset(screen.buffer,' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
+        homePage.display(screen);
 
         for(char row=0; row<Ui::ScreenBuffer::NB_ROWS; ++row) {
             move(1+row,1);

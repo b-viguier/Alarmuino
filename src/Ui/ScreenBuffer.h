@@ -8,6 +8,8 @@ namespace Ui {
         enum {
             NB_ROWS = 2,
             NB_COLS = 16,
+
+            STR_BUFFER_SIZE = NB_COLS + 1,
         };
 
         char buffer[ScreenBuffer::NB_ROWS][ScreenBuffer::NB_COLS];
