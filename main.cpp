@@ -1,5 +1,7 @@
-#include <iostream>
 #include <ncurses.h>
+#include <cstring>
+
+#include "Ui/ScreenBuffer.h"
 
 int main() {
     WINDOW *wnd = initscr();
@@ -8,16 +10,22 @@ int main() {
     nodelay(wnd, true);
     clear();
 
-    char screen_buffer[2][16] = {
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',},
-    };
+    // External Frame
+    mvaddch(0,0,'+');
+    mvaddch(0,Ui::ScreenBuffer::NB_COLS+1,'+');
+    mvaddch(Ui::ScreenBuffer::NB_ROWS+1,0,'+');
+    mvaddch(Ui::ScreenBuffer::NB_ROWS+1,Ui::ScreenBuffer::NB_COLS+1,'+');
+    for(char col =1; col <= Ui::ScreenBuffer::NB_COLS; ++col) {
+        mvaddch(0,col,'-');
+        mvaddch(Ui::ScreenBuffer::NB_ROWS+1,col,'-');
+    }
+    for(char row =1; row <= Ui::ScreenBuffer::NB_ROWS; ++row) {
+        mvaddch(row,0,'|');
+        mvaddch(row,Ui::ScreenBuffer::NB_COLS+1,'|');
+    }
 
-    mvprintw(0,0, "+----------------+");
-    mvprintw(1,0, "|                |");
-    mvprintw(2,0, "|                |");
-    mvprintw(3,0, "+----------------+");
-
+    Ui::ScreenBuffer screen;
+    memset(screen.buffer,' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
     int input;
 
     for (;;) {
@@ -26,12 +34,13 @@ int main() {
             break;
         }
 
-        for(uint row=0; row<2; ++row) {
+        for(char row=0; row<Ui::ScreenBuffer::NB_ROWS; ++row) {
             move(1+row,1);
-            for(uint col =0; col < 16; ++col) {
-                addch(screen_buffer[row][col]);
+            for(char col =0; col < Ui::ScreenBuffer::NB_COLS; ++col) {
+                addch(screen.buffer[row][col]);
             }
         }
+        move(0,0);
 
         refresh();
     }

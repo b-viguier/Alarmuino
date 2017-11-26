@@ -3,11 +3,12 @@ project(Alarmuino)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES main.cpp src/Ui/ScreenBuffer.h)
+include_directories("src")
 
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
-add_executable(Alarmuino ${SOURCE_FILES})
 
+add_executable(Alarmuino ${SOURCE_FILES})
 
 target_link_libraries(Alarmuino ${CURSES_LIBRARIES})
