@@ -6,5 +6,11 @@ Ui::Page::Page(const char *title) {
 }
 
 void Ui::Page::display(Ui::ScreenBuffer &screen) {
-    memcpy(screen.buffer, _title, strlen(_title));
+    memcpy(&screen.buffer[0][0], _title, strlen(_title));
+}
+
+void Ui::Page::onKeyPressed(Ui::Keyboard::Key key) {
+}
+
+void Ui::Page::onKeyReleased(Ui::Keyboard::Key key) {
 }
