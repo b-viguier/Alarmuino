@@ -21,7 +21,7 @@ namespace Ui {
             FIRST_KEY = 0,
         };
 
-        Ui::Keyboard& setState(Key key, bool pressed);
+        Ui::Keyboard &setState(Key key, bool pressed);
 
         void dispatchEvents(Page &page) const;
 

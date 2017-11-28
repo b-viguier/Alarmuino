@@ -14,7 +14,7 @@ void Ui::Keyboard::dispatchEvents(Ui::Page &page) const {
         return;
     }
 
-    for (Keyboard::Key k = FIRST_KEY; k < NB_OF_KEYS; k = (Keyboard::Key)(k+1)) {
+    for (Keyboard::Key k = FIRST_KEY; k < NB_OF_KEYS; k = (Keyboard::Key) (k + 1)) {
         if (diff[k]) {
             _values[k] ? page.onKeyPressed(k) : page.onKeyReleased(k);
         }

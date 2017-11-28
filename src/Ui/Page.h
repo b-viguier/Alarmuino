@@ -8,11 +8,12 @@ namespace Ui {
 
     class Page {
     public:
-        explicit Page(const char* title);
+        explicit Page(const char *title);
 
-        void display(ScreenBuffer& screen);
+        void display(ScreenBuffer &screen);
 
         void onKeyPressed(Ui::Keyboard::Key key);
+
         void onKeyReleased(Ui::Keyboard::Key key);
 
     private:
