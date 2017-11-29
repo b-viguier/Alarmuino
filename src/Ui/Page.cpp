@@ -1,7 +1,7 @@
 #include <cstring>
 #include "Page.h"
 
-Ui::Page::Page(const char *title) {
+Ui::Page::Page(const char *title, Ui::Page *parent) : _parent(parent) {
     strcpy(_title, title);
 }
 
@@ -13,4 +13,12 @@ void Ui::Page::onKeyPressed(Ui::Keyboard::Key key) {
 }
 
 void Ui::Page::onKeyReleased(Ui::Keyboard::Key key) {
+}
+
+const char *Ui::Page::title() const {
+    return _title;
+}
+
+void Ui::Page::setParent(Ui::Page *parent) {
+    _parent = parent;
 }

@@ -1,9 +1,6 @@
 #include <ncurses.h>
 #include <cstring>
-
-#include "Ui/Keyboard.h"
-#include "Ui/ScreenBuffer.h"
-#include "Ui/Page.h"
+#include <Ui/MenuPage.h>
 
 int main() {
     // Screen Init
@@ -15,29 +12,37 @@ int main() {
     keypad(stdscr, TRUE);
 
     // External Frame
-    mvaddch(0,0,'+');
-    mvaddch(0,Ui::ScreenBuffer::NB_COLS+1,'+');
-    mvaddch(Ui::ScreenBuffer::NB_ROWS+1,0,'+');
-    mvaddch(Ui::ScreenBuffer::NB_ROWS+1,Ui::ScreenBuffer::NB_COLS+1,'+');
-    for(char col =1; col <= Ui::ScreenBuffer::NB_COLS; ++col) {
-        mvaddch(0,col,'-');
-        mvaddch(Ui::ScreenBuffer::NB_ROWS+1,col,'-');
+    mvaddch(0, 0, '+');
+    mvaddch(0, Ui::ScreenBuffer::NB_COLS + 1, '+');
+    mvaddch(Ui::ScreenBuffer::NB_ROWS + 1, 0, '+');
+    mvaddch(Ui::ScreenBuffer::NB_ROWS + 1, Ui::ScreenBuffer::NB_COLS + 1, '+');
+    for (uint8_t col = 1; col <= Ui::ScreenBuffer::NB_COLS; ++col) {
+        mvaddch(0, col, '-');
+        mvaddch(Ui::ScreenBuffer::NB_ROWS + 1, col, '-');
     }
-    for(char row =1; row <= Ui::ScreenBuffer::NB_ROWS; ++row) {
-        mvaddch(row,0,'|');
-        mvaddch(row,Ui::ScreenBuffer::NB_COLS+1,'|');
+    for (uint8_t row = 1; row <= Ui::ScreenBuffer::NB_ROWS; ++row) {
+        mvaddch(row, 0, '|');
+        mvaddch(row, Ui::ScreenBuffer::NB_COLS + 1, '|');
     }
+
+    // Menu
+    Ui::MenuPage homePage("Home");
+    Ui::Page menu1("Page1");
+    Ui::Page menu2("Page2");
+
+    homePage
+            .addPage(&menu1)
+            .addPage(&menu2);
 
     Ui::ScreenBuffer screen;
     int input;
-    Ui::Page homePage("Home");
     Ui::Keyboard keyboard;
 
     for (;;) {
 
         // Input
         input = getch();
-        if( input == 'q') {
+        if (input == 'q') {
             break;
         }
 
@@ -49,16 +54,16 @@ int main() {
                 .dispatchEvents(homePage);
 
         // Display
-        memset(screen.buffer,' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
+        memset(screen.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
         homePage.display(screen);
 
-        for(char row=0; row<Ui::ScreenBuffer::NB_ROWS; ++row) {
-            move(1+row,1);
-            for(char col =0; col < Ui::ScreenBuffer::NB_COLS; ++col) {
+        for (uint8_t row = 0; row < Ui::ScreenBuffer::NB_ROWS; ++row) {
+            move(1 + row, 1);
+            for (uint8_t col = 0; col < Ui::ScreenBuffer::NB_COLS; ++col) {
                 addch(screen.buffer[row][col]);
             }
         }
-        move(0,0);
+        move(0, 0);
 
         refresh();
     }

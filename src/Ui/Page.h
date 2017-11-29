@@ -8,16 +8,22 @@ namespace Ui {
 
     class Page {
     public:
-        explicit Page(const char *title);
+        // Does not take ownership of parent
+        explicit Page(const char *title, Page* parent = nullptr);
 
-        void display(ScreenBuffer &screen);
+        void setParent(Page* parent);
 
-        void onKeyPressed(Ui::Keyboard::Key key);
+        virtual void display(ScreenBuffer &screen);
 
-        void onKeyReleased(Ui::Keyboard::Key key);
+        virtual void onKeyPressed(Ui::Keyboard::Key key);
+
+        virtual void onKeyReleased(Ui::Keyboard::Key key);
+
+        const char* title() const;
 
     private:
         char _title[ScreenBuffer::STR_BUFFER_SIZE];
+        Page *_parent;
     };
 
 }
