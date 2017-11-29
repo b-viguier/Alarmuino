@@ -8,7 +8,7 @@ Ui::Keyboard &Ui::Keyboard::setState(Ui::Keyboard::Key key, bool pressed) {
     return *this;
 }
 
-void Ui::Keyboard::dispatchEvents(Ui::Page &page) const {
+void Ui::Keyboard::dispatchEvents(Ui::Keyboard::Listener &listener) const {
     auto diff = _previous_values ^_values;
     if (diff.none()) {
         return;
@@ -16,7 +16,7 @@ void Ui::Keyboard::dispatchEvents(Ui::Page &page) const {
 
     for (Keyboard::Key k = FIRST_KEY; k < NB_OF_KEYS; k = (Keyboard::Key) (k + 1)) {
         if (diff[k]) {
-            _values[k] ? page.onKeyPressed(k) : page.onKeyReleased(k);
+            _values[k] ? listener.onKeyPressed(k) : listener.onKeyReleased(k);
         }
     }
 }

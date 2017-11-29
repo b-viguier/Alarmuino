@@ -33,6 +33,7 @@ int main() {
     homePage
             .addPage(&menu1)
             .addPage(&menu2);
+    Ui::Page::Focus focusPage(homePage);
 
     Ui::ScreenBuffer screen;
     int input;
@@ -51,11 +52,11 @@ int main() {
                 .setState(Ui::Keyboard::DOWN, input == KEY_DOWN)
                 .setState(Ui::Keyboard::LEFT, input == KEY_LEFT)
                 .setState(Ui::Keyboard::RIGHT, input == KEY_RIGHT)
-                .dispatchEvents(homePage);
+                .dispatchEvents(focusPage);
 
         // Display
         memset(screen.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
-        homePage.display(screen);
+        focusPage.display(screen);
 
         for (uint8_t row = 0; row < Ui::ScreenBuffer::NB_ROWS; ++row) {
             move(1 + row, 1);

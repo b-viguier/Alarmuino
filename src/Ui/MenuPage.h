@@ -1,8 +1,8 @@
 #ifndef ALARMUINO_MENUPAGE_H
 #define ALARMUINO_MENUPAGE_H
 
-#include "Page.h"
-#include "Keyboard.h"
+#include <Ui/Page.h>
+#include <Ui/Keyboard.h>
 
 namespace Ui {
 

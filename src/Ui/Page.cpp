@@ -22,3 +22,25 @@ const char *Ui::Page::title() const {
 void Ui::Page::setParent(Ui::Page *parent) {
     _parent = parent;
 }
+
+void Ui::Page::transmitFocus(Ui::Page &page) {
+    *_focus = Focus(page);
+    page._focus = _focus;
+    _focus = nullptr;
+}
+
+Ui::Page::Focus::Focus(Ui::Page &page) : _page(&page) {
+    _page->_focus = this;
+}
+
+void Ui::Page::Focus::display(Ui::ScreenBuffer &screen) {
+    _page->display(screen);
+}
+
+void Ui::Page::Focus::onKeyPressed(Ui::Keyboard::Key key) {
+    _page->onKeyPressed(key);
+}
+
+void Ui::Page::Focus::onKeyReleased(Ui::Keyboard::Key key) {
+    _page->onKeyReleased(key);
+}

@@ -5,8 +5,6 @@
 
 namespace Ui {
 
-    class Page;
-
     class Keyboard {
 
     public:
@@ -21,9 +19,15 @@ namespace Ui {
             FIRST_KEY = 0,
         };
 
+        struct Listener {
+            virtual void onKeyPressed(Keyboard::Key key) = 0;
+
+            virtual void onKeyReleased(Keyboard::Key key) = 0;
+        };
+
         Ui::Keyboard &setState(Key key, bool pressed);
 
-        void dispatchEvents(Page &page) const;
+        void dispatchEvents(Listener &listener) const;
 
 
     private:
