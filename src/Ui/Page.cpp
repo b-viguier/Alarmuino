@@ -1,7 +1,7 @@
 #include <cstring>
 #include "Page.h"
 
-Ui::Page::Page(const char *title, Ui::Page *parent) : _parent(parent) {
+Ui::Page::Page(const char *title) : _parent(nullptr) {
     strcpy(_title, title);
 }
 
@@ -38,6 +38,12 @@ void Ui::Page::Focus::display(Ui::ScreenBuffer &screen) {
 }
 
 void Ui::Page::Focus::onKeyPressed(Ui::Keyboard::Key key) {
+
+    if (key == Keyboard::EXIT && _page->_parent != nullptr) {
+        _page->transmitFocus(*_page->_parent);
+        return;
+    }
+
     _page->onKeyPressed(key);
 }
 

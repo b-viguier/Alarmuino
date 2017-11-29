@@ -10,15 +10,15 @@ namespace Ui {
 
     public:
         // Does not take ownership of parent
-        explicit Page(const char *title, Page *parent = nullptr);
+        explicit Page(const char *title);
 
         void setParent(Page *parent);
 
         virtual void display(ScreenBuffer &screen);
 
-        virtual void onKeyPressed(Keyboard::Key key);
+        void onKeyPressed(Keyboard::Key key) override ;
 
-        virtual void onKeyReleased(Keyboard::Key key);
+        void onKeyReleased(Keyboard::Key key) override ;
 
         const char *title() const;
 
@@ -30,9 +30,9 @@ namespace Ui {
 
             void display(ScreenBuffer &screen);
 
-            void onKeyPressed(Keyboard::Key key);
+            void onKeyPressed(Keyboard::Key key) final ;
 
-            void onKeyReleased(Keyboard::Key key);
+            void onKeyReleased(Keyboard::Key key) final ;
 
         private:
             Page *_page;

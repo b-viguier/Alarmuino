@@ -27,12 +27,22 @@ int main() {
 
     // Menu
     Ui::MenuPage homePage("Home");
-    Ui::Page menu1("Page1");
-    Ui::Page menu2("Page2");
+    Ui::MenuPage menu1("Page1");
+    Ui::MenuPage menu2("Page2");
+    Ui::Page pageA("A");
+    Ui::Page pageB("B");
+    Ui::Page pageC("C");
+    Ui::Page pageD("D");
 
     homePage
-            .addPage(&menu1)
-            .addPage(&menu2);
+        .addPage(menu1
+             .addPage(pageA)
+             .addPage(pageB)
+        )
+        .addPage(menu2
+             .addPage(pageC)
+             .addPage(pageD)
+        );
     Ui::Page::Focus focusPage(homePage);
 
     Ui::ScreenBuffer screen;

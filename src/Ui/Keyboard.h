@@ -17,6 +17,12 @@ namespace Ui {
             // Meta values
             NB_OF_KEYS,
             FIRST_KEY = 0,
+
+            // Aliases
+            ENTER = RIGHT,
+            EXIT = LEFT,
+            NEXT = DOWN,
+            PREV = UP,
         };
 
         struct Listener {

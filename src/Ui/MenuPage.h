@@ -14,10 +14,9 @@ namespace Ui {
             NB_MAX_PAGES = 5,
         };
 
-        explicit MenuPage(const char* title, Page* parent = nullptr);
+        explicit MenuPage(const char* title);
 
-        // Does not take ownership of subpages
-        MenuPage& addPage(Page *subPage);
+        MenuPage& addPage(Page &subPage);
 
         void display(ScreenBuffer &screen);
 
