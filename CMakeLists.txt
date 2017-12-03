@@ -3,7 +3,11 @@ project(Alarmuino)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp src/Ui/ScreenBuffer.h src/Ui/Page.cpp src/Ui/Page.h src/Ui/Keyboard.cpp src/Ui/Keyboard.h src/Ui/MenuPage.cpp src/Ui/MenuPage.h)
+
+set(SOURCE_FILES_CORE src/Core/Sensor.h src/Core/Sensor.cpp)
+set(SOURCE_FILES_UI src/Ui/ScreenBuffer.h src/Ui/Page.cpp src/Ui/Page.h src/Ui/Keyboard.cpp src/Ui/Keyboard.h src/Ui/MenuPage.cpp src/Ui/MenuPage.h src/Ui/SensorPage.cpp src/Ui/SensorPage.h)
+
+set(SOURCE_FILES ${SOURCE_FILES_CORE} ${SOURCE_FILES_UI} main.cpp)
 include_directories("src")
 
 find_package(Curses REQUIRED)

@@ -1,6 +1,8 @@
 #include <ncurses.h>
 #include <cstring>
 #include <Ui/MenuPage.h>
+#include <Core/Sensor.h>
+#include <Ui/SensorPage.h>
 
 int main() {
     // Screen Init
@@ -25,23 +27,20 @@ int main() {
         mvaddch(row, Ui::ScreenBuffer::NB_COLS + 1, '|');
     }
 
+    // Sensors
+    Core::Sensor door1("Door 1");
+    Core::Sensor door2("Door 2");
+
     // Menu
     Ui::MenuPage homePage("Home");
-    Ui::MenuPage menu1("Page1");
-    Ui::MenuPage menu2("Page2");
-    Ui::Page pageA("A");
-    Ui::Page pageB("B");
-    Ui::Page pageC("C");
-    Ui::Page pageD("D");
+    Ui::MenuPage sensorsMenu("Sensors");
+    Ui::SensorPage door1Page(door1);
+    Ui::SensorPage door2Page(door2);
 
     homePage
-        .addPage(menu1
-             .addPage(pageA)
-             .addPage(pageB)
-        )
-        .addPage(menu2
-             .addPage(pageC)
-             .addPage(pageD)
+        .addPage(sensorsMenu
+             .addPage(door1Page)
+             .addPage(door2Page)
         );
     Ui::Page::Focus focusPage(homePage);
 
