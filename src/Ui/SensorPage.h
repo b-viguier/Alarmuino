@@ -12,6 +12,8 @@ namespace Ui {
 
         void display(ScreenBuffer &screen) override;
 
+        void onKeyPressed(Keyboard::Key key) override;
+
     private:
         Core::Sensor *_sensor;
     };
