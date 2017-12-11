@@ -6,42 +6,27 @@
 
 namespace Ui {
 
-    class Page : public Keyboard::Listener{
+    class Focus;
+
+    class Page : public Keyboard::Listener {
 
     public:
-        // Does not take ownership of parent
         explicit Page(const char *title);
-
-        void setParent(Page *parent);
 
         virtual void display(ScreenBuffer &screen);
 
-        void onKeyPressed(Keyboard::Key key) override ;
+        void onKeyPressed(Keyboard::Key key) override;
 
-        void onKeyReleased(Keyboard::Key key) override ;
+        void onKeyReleased(Keyboard::Key key) override;
 
         const char *title() const;
 
-        void transmitFocus(Page &page);
+        void setFocus(Focus &focus);
 
-        class Focus : public Keyboard::Listener{
-        public:
-            explicit Focus(Page &page);
-
-            void display(ScreenBuffer &screen);
-
-            void onKeyPressed(Keyboard::Key key) final ;
-
-            void onKeyReleased(Keyboard::Key key) final ;
-
-        private:
-            Page *_page;
-        };
-
+    protected:
+        Focus *_focus;
     private:
         char _title[ScreenBuffer::STR_BUFFER_SIZE];
-        Page *_parent;
-        Focus *_focus;
     };
 
 }

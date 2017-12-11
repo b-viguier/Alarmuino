@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <cstring>
+#include <Ui/Focus.h>
 #include <Ui/MenuPage.h>
 #include <Core/Sensor.h>
 #include <Ui/SensorPage.h>
@@ -42,7 +43,7 @@ int main() {
              .addPage(door1Page)
              .addPage(door2Page)
         );
-    Ui::Page::Focus focusPage(homePage);
+    Ui::Focus focusPage(homePage);
 
     Ui::ScreenBuffer screen;
     int input;

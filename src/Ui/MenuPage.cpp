@@ -6,7 +6,6 @@ Ui::MenuPage::MenuPage(const char *title) : Page(title), _nbPages(0), _currentIn
 
 Ui::MenuPage &Ui::MenuPage::addPage(Ui::Page &subPage) {
     _pages[_nbPages++] = &subPage;
-    subPage.setParent(this);
 
     return *this;
 }
@@ -20,7 +19,7 @@ void Ui::MenuPage::display(Ui::ScreenBuffer &screen) {
 void Ui::MenuPage::onKeyPressed(Ui::Keyboard::Key key) {
     switch (key) {
         case Keyboard::ENTER:
-            transmitFocus(*_pages[_currentIndex]);
+            _pages[_currentIndex]->setFocus(*_focus);
             break;
         case Keyboard::NEXT:
             _currentIndex = (_currentIndex + (uint8_t) 1) % _nbPages;
