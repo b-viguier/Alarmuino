@@ -12,8 +12,9 @@ Ui::MenuPage &Ui::MenuPage::addPage(Ui::Page &subPage) {
 }
 
 void Ui::MenuPage::display(Ui::ScreenBuffer &screen) {
+    Page::display(screen);
     auto currentTitle = _pages[_currentIndex]->title();
-    memcpy(&screen.buffer[0][0], currentTitle, strlen(currentTitle));
+    memcpy(&screen.buffer[1][0], currentTitle, strlen(currentTitle));
 }
 
 void Ui::MenuPage::onKeyPressed(Ui::Keyboard::Key key) {
