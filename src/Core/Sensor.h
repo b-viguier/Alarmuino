@@ -10,13 +10,7 @@ namespace Core {
     public:
         typedef Core::Property<bool>::Wrapper<Core::Sensor> EnabledProperty;
 
-        template<std::size_t N>
-        explicit constexpr Sensor(const char(&name)[N])
-                : _name(name), _enabled(false), _prop_enabled(Core::Sensor::EnabledProperty(
-                *this,
-                &Core::Sensor::isEnabled,
-                &Core::Sensor::enable
-        )) {}
+        explicit Sensor(const char *name);
 
         constexpr const char *name() const {
             return _name;
