@@ -7,3 +7,7 @@ bool Core::Sensor::isEnabled() const {
 void Core::Sensor::enable(bool enabled) {
     _enabled = enabled;
 }
+
+Core::Sensor::EnabledProperty &Core::Sensor::enabledProperty() {
+    return _prop_enabled;
+}

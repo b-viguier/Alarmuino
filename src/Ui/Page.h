@@ -19,7 +19,7 @@ namespace Ui {
 
         void onKeyReleased(Keyboard::Key key) override;
 
-        const char *title() const;
+        virtual const char *title() const;
 
         void setFocus(Focus &focus);
 

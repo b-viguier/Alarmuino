@@ -2,6 +2,7 @@
 #define ALARMUINO_SENSORPAGE_H
 
 #include <Core/Sensor.h>
+#include <Ui/Editor/Boolean.h>
 #include "Page.h"
 
 namespace Ui {
@@ -16,6 +17,9 @@ namespace Ui {
 
     private:
         Core::Sensor *_sensor;
+
+        Ui::Editor::Boolean _edit_enabled;
+
     };
 }
 
