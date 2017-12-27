@@ -3,22 +3,20 @@
 
 #include <Core/Sensor.h>
 #include <Ui/Editor/Boolean.h>
-#include "Page.h"
+#include <Ui/Editor/Integer.h>
+#include <Ui/MenuPage.h>
 
 namespace Ui {
 
-    class SensorPage : public Page {
+    class SensorPage : public MenuPage {
     public:
         explicit SensorPage(Core::Sensor &sensor);
-
-        void display(ScreenBuffer &screen) override;
-
-        void onKeyPressed(Keyboard::Key key) override;
 
     private:
         Core::Sensor *_sensor;
 
         Ui::Editor::Boolean _edit_enabled;
+        Ui::Editor::Integer _edit_battery;
 
     };
 }

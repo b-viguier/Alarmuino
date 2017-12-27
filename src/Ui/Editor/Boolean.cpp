@@ -5,6 +5,7 @@ Ui::Editor::Boolean::Boolean(const char *title, Core::Property<bool> &p)
 }
 
 void Ui::Editor::Boolean::display(Ui::ScreenBuffer &screen) {
+    Page::display(screen);
     screen.buffer[1][Ui::ScreenBuffer::NB_COLS - 1] = _property.get() ? 'Y' : 'N';
 }
 

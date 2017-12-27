@@ -8,7 +8,10 @@ namespace Core {
 
     class Sensor {
     public:
+        typedef int BatteryLevel;
+
         typedef Core::Property<bool>::Wrapper<Core::Sensor> EnabledProperty;
+        typedef Core::Property<BatteryLevel>::WrapperReadOnly<Core::Sensor> BatteryProperty;
 
         explicit Sensor(const char *name);
 
@@ -20,12 +23,17 @@ namespace Core {
 
         void enable(bool enabled);
 
+        virtual BatteryLevel batteryLevel() const = 0;
+
         EnabledProperty &enabledProperty();
+
+        BatteryProperty &batteryProperty() ;
 
     private:
         const char *_name;
         bool _enabled;
         EnabledProperty _prop_enabled;
+        BatteryProperty _prop_battery;
     };
 }
 

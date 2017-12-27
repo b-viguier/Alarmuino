@@ -13,26 +13,38 @@ namespace Core {
         virtual void set(Type value) = 0;
 
         template<class C>
-        class Wrapper : public Property {
+        class WrapperReadOnly : public Property {
         public:
             typedef Type (C::*GetFunction)() const;
 
-            typedef void (C::*SetFunction)(Type);
+            WrapperReadOnly(C &instance, GetFunction getter)
+                    : _instance(instance), _getter(getter) {}
 
-            Wrapper(C &instance, GetFunction getter, SetFunction setter)
-                    : _instance(instance), _getter(getter), _setter(setter) {}
-
-            Type get() const override {
+            Type get() const final {
                 return (_instance.*_getter)();
             }
 
             void set(Type value) override {
-                (_instance.*_setter)(value);
             }
 
-        private:
+        protected:
             C &_instance;
             GetFunction _getter;
+        };
+
+        template<class C>
+        class Wrapper : public WrapperReadOnly<C> {
+        public:
+            typedef void (C::*SetFunction)(Type);
+
+            Wrapper(C &instance, typename WrapperReadOnly<C>::GetFunction getter, SetFunction setter)
+                    : WrapperReadOnly<C>(instance, getter), _setter(setter) {}
+
+            void set(Type value) final {
+                (this->_instance.*_setter)(value);
+            }
+
+        protected:
             SetFunction _setter;
         };
     };
