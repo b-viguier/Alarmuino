@@ -1,28 +1,28 @@
 #ifndef ALARMUINO_KEYBOARD_H
 #define ALARMUINO_KEYBOARD_H
 
-#include <bitset>
-
 namespace Ui {
 
     class Keyboard {
 
     public:
-        enum Key {
-            UP,
-            DOWN,
-            LEFT,
-            RIGHT,
+        typedef unsigned int KeySet;
 
-            // Meta values
-            NB_OF_KEYS,
-            FIRST_KEY = 0,
+        enum Key : KeySet {
+            UP      = 0x01,
+            DOWN    = 0x02,
+            LEFT    = 0x04,
+            RIGHT   = 0x08,
 
             // Aliases
             ENTER = RIGHT,
             EXIT = LEFT,
             NEXT = DOWN,
             PREV = UP,
+
+            // Meta values
+            FIRST_KEY = UP,
+            LAST_KEY = RIGHT,
         };
 
         struct Listener {
@@ -37,8 +37,8 @@ namespace Ui {
 
 
     private:
-        std::bitset<Keyboard::NB_OF_KEYS> _values;
-        std::bitset<Keyboard::NB_OF_KEYS> _previous_values;
+        KeySet _values = 0;
+        KeySet _previous_values = 0;
     };
 }
 
