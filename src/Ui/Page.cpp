@@ -1,4 +1,4 @@
-#include <cstring>
+#include <string.h>
 #include "Page.h"
 #include <Ui/Focus.h>
 

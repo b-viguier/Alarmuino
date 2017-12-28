@@ -1,4 +1,5 @@
 #include "MenuPage.h"
+#include <string.h>
 
 Ui::MenuPage::MenuPage(const char *title) : Page(title), _nbPages(0), _currentIndex(0) {
 
@@ -22,10 +23,10 @@ void Ui::MenuPage::onKeyPressed(Ui::Keyboard::Key key) {
             _pages[_currentIndex]->setFocus(*_focus);
             break;
         case Keyboard::NEXT:
-            _currentIndex = (_currentIndex + (uint8_t) 1) % _nbPages;
+            _currentIndex = (_currentIndex + (index_t) 1) % _nbPages;
             break;
         case Keyboard::PREV:
-            _currentIndex = (_currentIndex + _nbPages - (uint8_t) 1) % _nbPages;
+            _currentIndex = (_currentIndex + _nbPages - (index_t) 1) % _nbPages;
             break;
         default:
             //None

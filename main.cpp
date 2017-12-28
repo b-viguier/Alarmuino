@@ -1,3 +1,5 @@
+#ifndef ARDUINO
+
 #include <ncurses.h>
 #include <cstring>
 #include <Ui/Focus.h>
@@ -19,11 +21,11 @@ int main() {
     mvaddch(0, Ui::ScreenBuffer::NB_COLS + 1, '+');
     mvaddch(Ui::ScreenBuffer::NB_ROWS + 1, 0, '+');
     mvaddch(Ui::ScreenBuffer::NB_ROWS + 1, Ui::ScreenBuffer::NB_COLS + 1, '+');
-    for (uint8_t col = 1; col <= Ui::ScreenBuffer::NB_COLS; ++col) {
+    for (int col = 1; col <= Ui::ScreenBuffer::NB_COLS; ++col) {
         mvaddch(0, col, '-');
         mvaddch(Ui::ScreenBuffer::NB_ROWS + 1, col, '-');
     }
-    for (uint8_t row = 1; row <= Ui::ScreenBuffer::NB_ROWS; ++row) {
+    for (int row = 1; row <= Ui::ScreenBuffer::NB_ROWS; ++row) {
         mvaddch(row, 0, '|');
         mvaddch(row, Ui::ScreenBuffer::NB_COLS + 1, '|');
     }
@@ -68,9 +70,9 @@ int main() {
         memset(screen.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
         focusPage.display(screen);
 
-        for (uint8_t row = 0; row < Ui::ScreenBuffer::NB_ROWS; ++row) {
+        for (int row = 0; row < Ui::ScreenBuffer::NB_ROWS; ++row) {
             move(1 + row, 1);
-            for (uint8_t col = 0; col < Ui::ScreenBuffer::NB_COLS; ++col) {
+            for (int col = 0; col < Ui::ScreenBuffer::NB_COLS; ++col) {
                 addch(screen.buffer[row][col]);
             }
         }
@@ -82,3 +84,5 @@ int main() {
 
     return 0;
 }
+
+#endif // ARDUINO

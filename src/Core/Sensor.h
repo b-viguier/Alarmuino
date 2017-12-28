@@ -1,7 +1,6 @@
 #ifndef ALARMUINO_SENSOR_H
 #define ALARMUINO_SENSOR_H
 
-#include <cstddef>
 #include <Core/Property.h>
 
 namespace Core {

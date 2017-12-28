@@ -23,8 +23,9 @@ namespace Ui {
         virtual void onKeyPressed(Ui::Keyboard::Key key);
 
     private:
-        uint8_t _nbPages;
-        uint8_t _currentIndex;
+        typedef unsigned int index_t;
+        index_t _nbPages;
+        index_t _currentIndex;
         Page* _pages[NB_MAX_PAGES];
     };
 }
