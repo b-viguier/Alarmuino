@@ -1,5 +1,3 @@
-#ifndef ARDUINO
-
 #include <ncurses.h>
 #include <cstring>
 #include <Ui/Focus.h>
@@ -84,5 +82,3 @@ int main() {
 
     return 0;
 }
-
-#endif // ARDUINO
