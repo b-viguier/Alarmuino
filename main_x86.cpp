@@ -1,9 +1,10 @@
 #include <ncurses.h>
-#include <cstring>
-#include <Ui/Focus.h>
-#include <Ui/MenuPage.h>
+
 #include <Core/FakeSensor.h>
+#include <Ui/ScreenBuffer.h>
 #include <Ui/SensorPage.h>
+
+#include <App/Alarmuino.h>
 
 int main() {
     // Screen Init
@@ -32,18 +33,14 @@ int main() {
     Core::FakeSensor door1("Door 1", 51);
     Core::FakeSensor door2("Door 2", 27);
 
-    // Menu
-    Ui::MenuPage homePage("Home");
-    Ui::MenuPage sensorsMenu("Sensors");
+    // Pages
     Ui::SensorPage door1Page(door1);
     Ui::SensorPage door2Page(door2);
 
-    homePage
-        .addPage(sensorsMenu
-             .addPage(door1Page)
-             .addPage(door2Page)
-        );
-    Ui::Focus focusPage(homePage);
+    App::Alarmuino application;
+    application
+            .addSensor(door1Page)
+            .addSensor(door2Page);
 
     Ui::ScreenBuffer screen;
     int input;
@@ -61,12 +58,9 @@ int main() {
                 .setState(Ui::Keyboard::UP, input == KEY_UP)
                 .setState(Ui::Keyboard::DOWN, input == KEY_DOWN)
                 .setState(Ui::Keyboard::LEFT, input == KEY_LEFT)
-                .setState(Ui::Keyboard::RIGHT, input == KEY_RIGHT)
-                .dispatchEvents(focusPage);
+                .setState(Ui::Keyboard::RIGHT, input == KEY_RIGHT);
 
-        // Display
-        memset(screen.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
-        focusPage.display(screen);
+        application.process(keyboard, screen);
 
         for (int row = 0; row < Ui::ScreenBuffer::NB_ROWS; ++row) {
             move(1 + row, 1);

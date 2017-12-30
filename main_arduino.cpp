@@ -1,23 +1,22 @@
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 
-#include <Ui/Focus.h>
-#include <Ui/MenuPage.h>
 #include <Core/FakeSensor.h>
+#include <Ui/ScreenBuffer.h>
 #include <Ui/SensorPage.h>
+
+#include <App/Alarmuino.h>
 
 // Sensors
 Core::FakeSensor door1("Door 1", 51);
 Core::FakeSensor door2("Door 2", 27);
 
-// Menu
-Ui::MenuPage homePage("Home");
-Ui::MenuPage sensorsMenu("Sensors");
+// Pages
 Ui::SensorPage door1Page(door1);
 Ui::SensorPage door2Page(door2);
 
-// I/O
-Ui::Focus focusPage(homePage);
+App::Alarmuino application;
+
 Ui::ScreenBuffer screen;
 Ui::Keyboard keyboard;
 
@@ -40,12 +39,9 @@ enum Lcd {
 LiquidCrystal lcd(Lcd::RS, Lcd::ENABLE, Lcd::D4, Lcd::D5, Lcd::D6, Lcd::D7);
 
 void setup() {
-    homePage
-            .addPage(sensorsMenu
-                             .addPage(door1Page)
-                             .addPage(door2Page)
-            );
-
+    application
+            .addSensor(door1Page)
+            .addSensor(door2Page);
 
     pinMode(Button::UP, INPUT_PULLUP);
     pinMode(Button::DOWN, INPUT_PULLUP);
@@ -61,12 +57,10 @@ void loop() {
             .setState(Ui::Keyboard::UP, digitalRead(Button::UP) == LOW)
             .setState(Ui::Keyboard::DOWN, digitalRead(Button::DOWN) == LOW)
             .setState(Ui::Keyboard::LEFT, digitalRead(Button::LEFT) == LOW)
-            .setState(Ui::Keyboard::RIGHT, digitalRead(Button::RIGHT) == LOW)
-            .dispatchEvents(focusPage);
+            .setState(Ui::Keyboard::RIGHT, digitalRead(Button::RIGHT) == LOW);
 
     // Display
-    memset(screen.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
-    focusPage.display(screen);
+    application.process(keyboard, screen);
 
     for (int row = 0; row < Ui::ScreenBuffer::NB_ROWS; ++row) {
         lcd.setCursor(0, row);
