@@ -7,7 +7,7 @@
 
 namespace Ui {
 
-    class ScreenBuffer;
+    struct ScreenBuffer;
 
     class MenuPage : public Ui::Page {
     public:

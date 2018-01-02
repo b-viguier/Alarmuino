@@ -3,7 +3,6 @@
 
 Ui::SensorPage::SensorPage(Core::Sensor &sensor)
 : MenuPage(sensor.name())
-, _sensor(&sensor)
 , _edit_enabled("Enabled", sensor.enabledProperty())
 , _edit_battery("Battery", sensor.batteryProperty())
 , _edit_triggered("Triggered", sensor.triggeredProperty())

@@ -6,7 +6,7 @@
 
 namespace Ui {
     class SensorPage;
-    class ScreenBuffer;
+    struct ScreenBuffer;
     class Keyboard;
 }
 

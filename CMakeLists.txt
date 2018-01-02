@@ -18,3 +18,6 @@ include_directories(${CURSES_INCLUDE_DIR})
 add_executable(Alarmuino ${SOURCE_FILES})
 
 target_link_libraries(Alarmuino ${CURSES_LIBRARIES})
+
+# Enable warnings
+target_compile_options(Alarmuino PRIVATE "-Wall")
