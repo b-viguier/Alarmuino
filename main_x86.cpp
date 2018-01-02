@@ -6,6 +6,17 @@
 
 #include <App/Alarmuino.h>
 
+class TriggerableSensor : public Core::Sensor {
+public:
+    using Core::Sensor::Sensor;
+
+    bool triggered = false;
+
+    bool isTriggered() const final {
+        return triggered;
+    }
+};
+
 int main() {
     // Screen Init
     WINDOW *wnd = initscr();
@@ -28,10 +39,12 @@ int main() {
         mvaddch(row, 0, '|');
         mvaddch(row, Ui::ScreenBuffer::NB_COLS + 1, '|');
     }
+    move(Ui::ScreenBuffer::NB_ROWS + 2, 0);
+    printw("q: quit\nt: trigger");
 
     // Sensors
-    Core::Sensor door1("Door 1");
-    Core::Sensor door2("Door 2");
+    TriggerableSensor door1("Door 1");
+    TriggerableSensor door2("Door 2");
 
     // Pages
     Ui::SensorPage door1Page(door1);
@@ -50,8 +63,14 @@ int main() {
 
         // Input
         input = getch();
-        if (input == 'q') {
-            break;
+        switch (input) {
+            case 'q':
+                goto loop_exit;
+                break;
+            case 't':
+                door2.triggered = door1.triggered == !door2.triggered;
+                door1.triggered = !door1.triggered;
+                break;
         }
 
         keyboard
@@ -72,6 +91,7 @@ int main() {
 
         refresh();
     }
+    loop_exit:
     endwin();
 
     return 0;
