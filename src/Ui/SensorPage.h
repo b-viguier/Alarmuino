@@ -17,6 +17,7 @@ namespace Ui {
 
         Ui::Editor::Boolean _edit_enabled;
         Ui::Editor::Integer _edit_battery;
+        Ui::Editor::Boolean _edit_triggered;
 
     };
 }

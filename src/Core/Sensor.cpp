@@ -15,6 +15,12 @@ Core::Sensor::Sensor(const char *name)
                         &Core::Sensor::batteryLevel
                 )
         )
+        , _prop_triggered(
+                Core::Sensor::TriggeredProperty(
+                        *this,
+                        &Core::Sensor::isTriggered
+                )
+        )
 {
 
 
@@ -34,4 +40,16 @@ Core::Sensor::EnabledProperty &Core::Sensor::enabledProperty() {
 
 Core::Sensor::BatteryProperty &Core::Sensor::batteryProperty() {
     return _prop_battery;
+}
+
+Core::Sensor::BatteryLevel Core::Sensor::batteryLevel() const {
+    return BATTERY_MAX;
+}
+
+bool Core::Sensor::isTriggered() const {
+    return false;
+}
+
+Core::Sensor::TriggeredProperty &Core::Sensor::triggeredProperty() {
+    return _prop_triggered;
 }

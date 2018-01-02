@@ -1,6 +1,6 @@
 #include <ncurses.h>
 
-#include <Core/FakeSensor.h>
+#include <Core/Sensor.h>
 #include <Ui/ScreenBuffer.h>
 #include <Ui/SensorPage.h>
 
@@ -30,8 +30,8 @@ int main() {
     }
 
     // Sensors
-    Core::FakeSensor door1("Door 1", 51);
-    Core::FakeSensor door2("Door 2", 27);
+    Core::Sensor door1("Door 1");
+    Core::Sensor door2("Door 2");
 
     // Pages
     Ui::SensorPage door1Page(door1);

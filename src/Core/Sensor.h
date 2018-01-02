@@ -8,8 +8,12 @@ namespace Core {
     class Sensor {
     public:
         typedef int BatteryLevel;
+        enum {
+            BATTERY_MAX = 100,
+        };
 
         typedef Core::Property<bool>::Wrapper<Core::Sensor> EnabledProperty;
+        typedef Core::Property<bool>::WrapperReadOnly<Core::Sensor> TriggeredProperty;
         typedef Core::Property<BatteryLevel>::WrapperReadOnly<Core::Sensor> BatteryProperty;
 
         explicit Sensor(const char *name);
@@ -22,17 +26,22 @@ namespace Core {
 
         void enable(bool enabled);
 
-        virtual BatteryLevel batteryLevel() const = 0;
+        virtual BatteryLevel batteryLevel() const;
+
+        virtual bool isTriggered() const;
 
         EnabledProperty &enabledProperty();
 
-        BatteryProperty &batteryProperty() ;
+        BatteryProperty &batteryProperty();
+
+        TriggeredProperty &triggeredProperty();
 
     private:
         const char *_name;
         bool _enabled;
         EnabledProperty _prop_enabled;
         BatteryProperty _prop_battery;
+        TriggeredProperty _prop_triggered;
     };
 }
 
