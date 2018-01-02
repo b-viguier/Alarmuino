@@ -2,23 +2,22 @@
 #include <Ui/Page.h>
 
 Ui::Focus::Focus(Ui::Page &page) {
-    _current = _stack - 1;
     page.setFocus(*this);
 }
 
 void Ui::Focus::push(Ui::Page &page) {
-    ++_current;
-    *_current = &page;
+    _stack.push(page);
 }
 
 void Ui::Focus::pop() {
-    if (_current > _stack) {
-        --_current;
+    // Ensure that there is always one focused page
+    if(_stack.size() > 1) {
+        _stack.pop();
     }
 }
 
 void Ui::Focus::display(Ui::ScreenBuffer &screen) {
-    (*_current)->display(screen);
+    _stack.current().display(screen);
 }
 
 void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
@@ -28,9 +27,9 @@ void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
         return;
     }
 
-    (*_current)->onKeyPressed(key);
+    _stack.current().onKeyPressed(key);
 }
 
 void Ui::Focus::onKeyReleased(Ui::Keyboard::Key key) {
-    (*_current)->onKeyReleased(key);
+    _stack.current().onKeyReleased(key);
 }

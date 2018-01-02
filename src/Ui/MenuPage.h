@@ -1,6 +1,7 @@
 #ifndef ALARMUINO_MENUPAGE_H
 #define ALARMUINO_MENUPAGE_H
 
+#include <Utils/Array.h>
 #include <Ui/Page.h>
 #include <Ui/Keyboard.h>
 
@@ -10,9 +11,6 @@ namespace Ui {
 
     class MenuPage : public Ui::Page {
     public:
-        enum {
-            NB_MAX_PAGES = 5,
-        };
 
         explicit MenuPage(const char* title);
 
@@ -23,10 +21,7 @@ namespace Ui {
         virtual void onKeyPressed(Ui::Keyboard::Key key);
 
     private:
-        typedef unsigned int index_t;
-        index_t _nbPages;
-        index_t _currentIndex;
-        Page* _pages[NB_MAX_PAGES];
+        Utils::Array<Page,5> _pages;
     };
 }
 

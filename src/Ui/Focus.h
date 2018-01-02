@@ -1,6 +1,7 @@
 #ifndef ALARMUINO_FOCUS_H
 #define ALARMUINO_FOCUS_H
 
+#include <Utils/Array.h>
 #include <Ui/Keyboard.h>
 #include <Ui/ScreenBuffer.h>
 
@@ -23,11 +24,7 @@ namespace Ui {
         void onKeyReleased(Keyboard::Key key) final;
 
     private:
-        enum {
-            MAX_STACK_SIZE = 5
-        };
-        Page *_stack[MAX_STACK_SIZE];
-        Page **_current;
+        Utils::Array<Ui::Page,5> _stack;
     };
 
 }
