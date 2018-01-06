@@ -11,13 +11,13 @@ void Ui::Focus::push(Ui::Page &page) {
 
 void Ui::Focus::pop() {
     // Ensure that there is always one focused page
-    if(_stack.size() > 1) {
+    if (_stack.size() > 1) {
         _stack.pop();
     }
 }
 
 void Ui::Focus::display(Ui::ScreenBuffer &screen) {
-    _stack.current().display(screen);
+    _stack[_stack.size() - 1].display(screen);
 }
 
 void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
@@ -27,9 +27,9 @@ void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
         return;
     }
 
-    _stack.current().onKeyPressed(key);
+    _stack[_stack.size() - 1].onKeyPressed(key);
 }
 
 void Ui::Focus::onKeyReleased(Ui::Keyboard::Key key) {
-    _stack.current().onKeyReleased(key);
+    _stack[_stack.size() - 1].onKeyReleased(key);
 }

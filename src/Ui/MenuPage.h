@@ -21,7 +21,8 @@ namespace Ui {
         virtual void onKeyPressed(Ui::Keyboard::Key key);
 
     private:
-        Utils::Array<Page,5> _pages;
+        Utils::ArrayFixedCapacity<Page,5> _pages;
+        unsigned int _currentIndex;
     };
 }
 

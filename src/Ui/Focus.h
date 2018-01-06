@@ -24,7 +24,7 @@ namespace Ui {
         void onKeyReleased(Keyboard::Key key) final;
 
     private:
-        Utils::Array<Ui::Page,5> _stack;
+        Utils::ArrayFixedCapacity<Ui::Page,5> _stack;
     };
 
 }
