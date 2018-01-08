@@ -17,6 +17,14 @@ namespace Ui {
 
         void pop();
 
+        inline Page& current() {
+            return _stack[_stack.size() - 1];
+        }
+
+        inline const Page& current() const {
+            return _stack[_stack.size() - 1];
+        }
+
         void display(ScreenBuffer &screen);
 
         void onKeyPressed(Keyboard::Key key) final;

@@ -45,12 +45,14 @@ int main() {
     // Sensors
     TriggerableSensor door1("Door 1");
     TriggerableSensor door2("Door 2");
+    Utils::ArrayFixedSize<Core::Sensor, 2>
+            sensors(door1, door2);
 
     // Pages
     Ui::SensorPage door1Page(door1);
     Ui::SensorPage door2Page(door2);
 
-    App::Alarmuino application;
+    App::Alarmuino application(sensors);
     application
             .addSensor(door1Page)
             .addSensor(door2Page);

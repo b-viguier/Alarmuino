@@ -17,7 +17,7 @@ void Ui::Focus::pop() {
 }
 
 void Ui::Focus::display(Ui::ScreenBuffer &screen) {
-    _stack[_stack.size() - 1].display(screen);
+    current().display(screen);
 }
 
 void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
@@ -27,9 +27,9 @@ void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
         return;
     }
 
-    _stack[_stack.size() - 1].onKeyPressed(key);
+    current().onKeyPressed(key);
 }
 
 void Ui::Focus::onKeyReleased(Ui::Keyboard::Key key) {
-    _stack[_stack.size() - 1].onKeyReleased(key);
+    current().onKeyReleased(key);
 }

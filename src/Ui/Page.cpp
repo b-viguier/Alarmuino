@@ -25,3 +25,7 @@ void Ui::Page::setFocus(Focus &focus) {
     _focus = &focus;
     _focus->push(*this);
 }
+
+bool Ui::Page::hasFocus() const {
+    return _focus && (this == &_focus->current());
+}

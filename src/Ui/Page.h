@@ -23,6 +23,8 @@ namespace Ui {
 
         void setFocus(Focus &focus);
 
+        bool hasFocus() const;
+
     protected:
         Focus *_focus;
     private:
