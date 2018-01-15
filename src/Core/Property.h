@@ -11,66 +11,42 @@ namespace Core {
     template<typename T>
     class Property {
     public:
-        typedef T Type;
+        virtual T get() const = 0;
 
-        virtual Type get() const = 0;
+        virtual void set(T value) = 0;
 
-        virtual void set(Type value) = 0;
-
-        template<class C> class WrapperReadOnly;
-        template<class C> class Wrapper;
+        virtual bool isReadOnly() const = 0;
     };
 
 
     /**
-     * Read-only property of an object
+     * Get/Set value of an object's property
      *
      * @tparam T Type of the handled property
      * @tparam C Object owner of the property
      */
-    template<typename T>
-    template<class C>
-    class Property<T>::WrapperReadOnly : public Property<T> {
+    template<class C, typename T>
+    class ObjectProperty : public Property<T> {
     public:
-        typedef Type (C::*GetFunction)() const;
+        typedef T (C::*GetFunction)() const;
 
-        WrapperReadOnly(C &instance, GetFunction getter)
-                : _instance(instance), _getter(getter) {}
+        typedef void (C::*SetFunction)(T);
 
-        Type get() const final {
-            return (_instance.*_getter)();
-        }
-
-        void set(Type value) final {
-        }
-
-    private:
-        C &_instance;
-        GetFunction _getter;
-    };
-
-    /**
-     * Read/Write property of an object
-     *
-     * @tparam T Type of the handled property
-     * @tparam C Object owner of the property
-     */
-    template<typename T>
-    template<class C>
-    class Property<T>::Wrapper : public Property<T> {
-    public:
-        typedef Type (C::*GetFunction)() const;
-        typedef void (C::*SetFunction)(Type);
-
-        Wrapper(C &instance, GetFunction getter, SetFunction setter)
+        ObjectProperty(C &instance, GetFunction getter, SetFunction setter = nullptr)
                 : _instance(instance), _getter(getter), _setter(setter) {}
 
-        Type get() const final {
+        T get() const final {
             return (_instance.*_getter)();
         }
 
-        void set(Type value) final {
-            return (_instance.*_setter)(value);
+        void set(T value) final {
+            if (!isReadOnly()) {
+                (_instance.*_setter)(value);
+            }
+        }
+
+        bool isReadOnly() const final {
+            return _setter == nullptr;
         }
 
     private:

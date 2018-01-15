@@ -7,17 +7,35 @@
 namespace Ui {
     namespace Editor {
 
+        struct _BooleanInternal {
+            typedef Core::Property<bool> Property;
+
+            static void display(Property &property, ScreenBuffer &screen);
+
+            static void onKeyPressed(Property &property, Keyboard::Key key);
+        };
+
+        template<class T>
         class Boolean : public Page {
 
         public:
-            Boolean(const char *title, Core::Property<bool> &p);
+            typedef Core::ObjectProperty<T, bool> Property;
 
-            void display(ScreenBuffer &screen) override;
+            Boolean(const char *title, T &instance, typename Property::GetFunction getter,
+                    typename Property::SetFunction setter = nullptr)
+                    : Page(title), _property(instance, getter, setter) {}
 
-            void onKeyPressed(Keyboard::Key key) override;
+            void display(ScreenBuffer &screen) override {
+                Page::display(screen);
+                _BooleanInternal::display(_property, screen);
+            }
+
+            void onKeyPressed(Keyboard::Key key) override {
+                _BooleanInternal::onKeyPressed(_property, key);
+            }
 
         private:
-            Core::Property<bool> &_property;
+            Property _property;
         };
     }
 }

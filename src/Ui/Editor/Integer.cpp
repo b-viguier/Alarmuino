@@ -10,26 +10,20 @@ namespace {
     }
 }
 
-Ui::Editor::Integer::Integer(const char *title, Core::Property<int> &p)
-        : Page(title), _property(p) {
-
-}
-
-void Ui::Editor::Integer::display(Ui::ScreenBuffer &screen) {
-    Page::display(screen);
+void Ui::Editor::_IntegerInternal::display(Property &property, Ui::ScreenBuffer &screen) {
     integerToCharBuffer(
-            _property.get(),
+            property.get(),
             &screen.buffer[1][Ui::ScreenBuffer::NB_COLS - 1]
     );
 }
 
-void Ui::Editor::Integer::onKeyPressed(Ui::Keyboard::Key key) {
+void Ui::Editor::_IntegerInternal::onKeyPressed(Property &property, Ui::Keyboard::Key key) {
     switch (key) {
         case Ui::Keyboard::UP:
-            _property.set(_property.get() + 1);
+            property.set(property.get() + 1);
             break;
         case Ui::Keyboard::DOWN:
-            _property.set(_property.get() - 1);
+            property.set(property.get() - 1);
             break;
         default:
             break;

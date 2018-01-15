@@ -7,18 +7,39 @@
 namespace Ui {
     namespace Editor {
 
+        struct _IntegerInternal {
+
+            typedef Core::Property<int> Property;
+
+            static void display(Property &property, ScreenBuffer &screen);
+
+            static void onKeyPressed(Property &property, Keyboard::Key key);
+        };
+
+        template<class T>
         class Integer : public Page {
 
         public:
-            Integer(const char *title, Core::Property<int> &p);
+            typedef Core::ObjectProperty<T, int> Property;
 
-            void display(ScreenBuffer &screen) override;
+            Integer(const char *title, T &instance, typename Property::GetFunction getter,
+                    typename Property::SetFunction setter = nullptr)
+                    : Page(title), _property(instance, getter, setter) {}
 
-            void onKeyPressed(Keyboard::Key key) override;
+            void display(ScreenBuffer &screen) override {
+                Page::display(screen);
+                _IntegerInternal::display(_property, screen);
+            }
+
+            void onKeyPressed(Keyboard::Key key) override {
+                _IntegerInternal::onKeyPressed(_property, key);
+            }
 
         private:
-            Core::Property<int> &_property;
+            Property _property;
         };
+
+
     }
 }
 

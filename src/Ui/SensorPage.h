@@ -13,9 +13,9 @@ namespace Ui {
         explicit SensorPage(Core::Sensor &sensor);
 
     private:
-        Ui::Editor::Boolean _edit_enabled;
-        Ui::Editor::Integer _edit_battery;
-        Ui::Editor::Boolean _edit_triggered;
+        Ui::Editor::Boolean<Core::Sensor> _edit_enabled;
+        Ui::Editor::Integer<Core::Sensor> _edit_battery;
+        Ui::Editor::Boolean<Core::Sensor> _edit_triggered;
 
     };
 }
