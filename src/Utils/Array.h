@@ -55,8 +55,14 @@ namespace Utils {
     class ArrayFixedCapacity : public Array<T> {
     public:
 
-        ArrayFixedCapacity()
-                : _size(0) {
+        template<typename ...Args>
+        explicit ArrayFixedCapacity(Args &...args) : _buffer{&args...}, _size(sizeof...(args)) {
+            static_assert(sizeof...(args) <= Capacity, "Number of arguments exceeds capacity of the array");
+        }
+
+        template<typename ...Args>
+        void reset(Args &...args) {
+            *this = ArrayFixedCapacity<T,Capacity>(&args...);
         }
 
         inline T &operator[](unsigned int i) final {
