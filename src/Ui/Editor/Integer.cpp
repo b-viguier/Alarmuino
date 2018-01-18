@@ -17,12 +17,12 @@ void Ui::Editor::_IntegerInternal::display(Property &property, Ui::ScreenBuffer 
     );
 }
 
-void Ui::Editor::_IntegerInternal::onKeyPressed(Property &property, Ui::Keyboard::Key key) {
+void Ui::Editor::_IntegerInternal::onKeyPressed(Property &property, Core::Keyboard::Key key) {
     switch (key) {
-        case Ui::Keyboard::UP:
+        case Core::Keyboard::UP:
             property.set(property.get() + 1);
             break;
-        case Ui::Keyboard::DOWN:
+        case Core::Keyboard::DOWN:
             property.set(property.get() - 1);
             break;
         default:

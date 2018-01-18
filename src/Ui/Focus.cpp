@@ -20,9 +20,9 @@ void Ui::Focus::display(Ui::ScreenBuffer &screen) {
     current().display(screen);
 }
 
-void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
+void Ui::Focus::onKeyPressed(Core::Keyboard::Key key) {
 
-    if (key == Keyboard::EXIT) {
+    if (key == Core::Keyboard::EXIT) {
         pop();
         return;
     }
@@ -30,6 +30,6 @@ void Ui::Focus::onKeyPressed(Ui::Keyboard::Key key) {
     current().onKeyPressed(key);
 }
 
-void Ui::Focus::onKeyReleased(Ui::Keyboard::Key key) {
+void Ui::Focus::onKeyReleased(Core::Keyboard::Key key) {
     current().onKeyReleased(key);
 }

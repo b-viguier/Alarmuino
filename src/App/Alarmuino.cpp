@@ -14,7 +14,7 @@ App::Alarmuino &App::Alarmuino::addSensor(Ui::SensorPage &page) {
     return *this;
 }
 
-void App::Alarmuino::process(Ui::Keyboard &keyboard, Ui::ScreenBuffer &screenBuffer) {
+void App::Alarmuino::process(Core::Keyboard &keyboard, Ui::ScreenBuffer &screenBuffer) {
 
     bool alert = false;
     for (unsigned int i = 0, size = _sensors.size(); i < size; ++i) {

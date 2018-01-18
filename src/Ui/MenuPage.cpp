@@ -17,15 +17,15 @@ void Ui::MenuPage::display(Ui::ScreenBuffer &screen) {
     memcpy(&screen.buffer[1][0], currentTitle, strlen(currentTitle));
 }
 
-void Ui::MenuPage::onKeyPressed(Ui::Keyboard::Key key) {
+void Ui::MenuPage::onKeyPressed(Core::Keyboard::Key key) {
     switch (key) {
-        case Keyboard::ENTER:
+        case Core::Keyboard::ENTER:
             _pages[_currentIndex].setFocus(*_focus);
             break;
-        case Keyboard::NEXT:
+        case Core::Keyboard::NEXT:
             _currentIndex = (_currentIndex + 1) % _pages.size();
             break;
-        case Keyboard::PREV:
+        case Core::Keyboard::PREV:
             _currentIndex = (_currentIndex + _pages.size() - 1) % _pages.size();
             break;
         default:

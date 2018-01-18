@@ -1,23 +1,23 @@
 #ifndef ALARMUINO_PAGE_H
 #define ALARMUINO_PAGE_H
 
-#include <Ui/Keyboard.h>
+#include <Core/Keyboard.h>
 #include <Ui/ScreenBuffer.h>
 
 namespace Ui {
 
     class Focus;
 
-    class Page : public Keyboard::Listener {
+    class Page : public Core::Keyboard::Listener {
 
     public:
         explicit Page(const char *title);
 
         virtual void display(ScreenBuffer &screen);
 
-        void onKeyPressed(Keyboard::Key key) override;
+        void onKeyPressed(Core::Keyboard::Key key) override;
 
-        void onKeyReleased(Keyboard::Key key) override;
+        void onKeyReleased(Core::Keyboard::Key key) override;
 
         virtual const char *title() const;
 

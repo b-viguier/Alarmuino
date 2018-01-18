@@ -22,7 +22,7 @@ namespace App {
 
         Alarmuino &addSensor(Ui::SensorPage &page);
 
-        void process(Ui::Keyboard &keyboard, Ui::ScreenBuffer &screenBuffer);
+        void process(Core::Keyboard &keyboard, Ui::ScreenBuffer &screenBuffer);
 
     private:
         //GUI

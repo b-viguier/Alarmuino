@@ -1,7 +1,7 @@
 #ifndef ALARMUINO_KEYBOARD_H
 #define ALARMUINO_KEYBOARD_H
 
-namespace Ui {
+namespace Core {
 
     class Keyboard {
 
@@ -26,12 +26,12 @@ namespace Ui {
         };
 
         struct Listener {
-            virtual void onKeyPressed(Keyboard::Key key) = 0;
+            virtual void onKeyPressed(Key key) = 0;
 
-            virtual void onKeyReleased(Keyboard::Key key) = 0;
+            virtual void onKeyReleased(Key key) = 0;
         };
 
-        Ui::Keyboard &setState(Key key, bool pressed);
+        Core::Keyboard &setState(Key key, bool pressed);
 
         void dispatchEvents(Listener &listener) const;
 

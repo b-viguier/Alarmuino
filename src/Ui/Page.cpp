@@ -11,10 +11,10 @@ void Ui::Page::display(Ui::ScreenBuffer &screen) {
     memcpy(&screen.buffer[0][(Ui::ScreenBuffer::NB_COLS - strlen(_title)) / 2], _title, strlen(_title));
 }
 
-void Ui::Page::onKeyPressed(Ui::Keyboard::Key key) {
+void Ui::Page::onKeyPressed(Core::Keyboard::Key key) {
 }
 
-void Ui::Page::onKeyReleased(Ui::Keyboard::Key key) {
+void Ui::Page::onKeyReleased(Core::Keyboard::Key key) {
 }
 
 const char *Ui::Page::title() const {

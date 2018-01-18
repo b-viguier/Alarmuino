@@ -59,7 +59,7 @@ int main() {
 
     Ui::ScreenBuffer screen;
     int input;
-    Ui::Keyboard keyboard;
+    Core::Keyboard keyboard;
 
     for (;;) {
 
@@ -76,10 +76,10 @@ int main() {
         }
 
         keyboard
-                .setState(Ui::Keyboard::UP, input == KEY_UP)
-                .setState(Ui::Keyboard::DOWN, input == KEY_DOWN)
-                .setState(Ui::Keyboard::LEFT, input == KEY_LEFT)
-                .setState(Ui::Keyboard::RIGHT, input == KEY_RIGHT);
+                .setState(Core::Keyboard::UP, input == KEY_UP)
+                .setState(Core::Keyboard::DOWN, input == KEY_DOWN)
+                .setState(Core::Keyboard::LEFT, input == KEY_LEFT)
+                .setState(Core::Keyboard::RIGHT, input == KEY_RIGHT);
 
         application.process(keyboard, screen);
 

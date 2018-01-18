@@ -3,7 +3,7 @@
 
 #include <Utils/Array.h>
 #include <Ui/Page.h>
-#include <Ui/Keyboard.h>
+#include <Core/Keyboard.h>
 
 namespace Ui {
 
@@ -18,7 +18,7 @@ namespace Ui {
 
         void display(ScreenBuffer &screen);
 
-        virtual void onKeyPressed(Ui::Keyboard::Key key);
+        virtual void onKeyPressed(Core::Keyboard::Key key);
 
     private:
         Utils::ArrayFixedCapacity<Page,5> _pages;

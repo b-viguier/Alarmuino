@@ -20,7 +20,7 @@ Ui::SensorPage door2Page(door2);
 App::Alarmuino application(sensors);
 
 Ui::ScreenBuffer screen;
-Ui::Keyboard keyboard;
+Core::Keyboard keyboard;
 
 enum Button {
     UP = 1,
@@ -56,10 +56,10 @@ void setup() {
 void loop() {
 
     keyboard
-            .setState(Ui::Keyboard::UP, digitalRead(Button::UP) == LOW)
-            .setState(Ui::Keyboard::DOWN, digitalRead(Button::DOWN) == LOW)
-            .setState(Ui::Keyboard::LEFT, digitalRead(Button::LEFT) == LOW)
-            .setState(Ui::Keyboard::RIGHT, digitalRead(Button::RIGHT) == LOW);
+            .setState(Core::Keyboard::UP, digitalRead(Button::UP) == LOW)
+            .setState(Core::Keyboard::DOWN, digitalRead(Button::DOWN) == LOW)
+            .setState(Core::Keyboard::LEFT, digitalRead(Button::LEFT) == LOW)
+            .setState(Core::Keyboard::RIGHT, digitalRead(Button::RIGHT) == LOW);
 
     // Display
     application.process(keyboard, screen);

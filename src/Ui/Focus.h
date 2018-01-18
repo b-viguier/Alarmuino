@@ -2,14 +2,14 @@
 #define ALARMUINO_FOCUS_H
 
 #include <Utils/Array.h>
-#include <Ui/Keyboard.h>
+#include <Core/Keyboard.h>
 #include <Ui/ScreenBuffer.h>
 
 namespace Ui {
 
     class Page;
 
-    class Focus : public Keyboard::Listener {
+    class Focus : public Core::Keyboard::Listener {
     public:
         explicit Focus(Page &page);
 
@@ -27,9 +27,9 @@ namespace Ui {
 
         void display(ScreenBuffer &screen);
 
-        void onKeyPressed(Keyboard::Key key) final;
+        void onKeyPressed(Core::Keyboard::Key key) final;
 
-        void onKeyReleased(Keyboard::Key key) final;
+        void onKeyReleased(Core::Keyboard::Key key) final;
 
     private:
         Utils::ArrayFixedCapacity<Ui::Page,5> _stack;

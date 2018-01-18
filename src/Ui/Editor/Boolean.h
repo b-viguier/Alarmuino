@@ -12,7 +12,7 @@ namespace Ui {
 
             static void display(Property &property, ScreenBuffer &screen);
 
-            static void onKeyPressed(Property &property, Keyboard::Key key);
+            static void onKeyPressed(Property &property, Core::Keyboard::Key key);
         };
 
         template<class T>
@@ -30,7 +30,7 @@ namespace Ui {
                 _BooleanInternal::display(_property, screen);
             }
 
-            void onKeyPressed(Keyboard::Key key) override {
+            void onKeyPressed(Core::Keyboard::Key key) override {
                 _BooleanInternal::onKeyPressed(_property, key);
             }
 

@@ -1,14 +1,14 @@
 #include "Keyboard.h"
 #include <Ui/Page.h>
 
-Ui::Keyboard &Ui::Keyboard::setState(Ui::Keyboard::Key key, bool pressed) {
+Core::Keyboard &Core::Keyboard::setState(Core::Keyboard::Key key, bool pressed) {
     _previous_values = (_previous_values & ~key) | (_values & key);
     _values = (_values & ~key) | (pressed ? key : 0);
 
     return *this;
 }
 
-void Ui::Keyboard::dispatchEvents(Ui::Keyboard::Listener &listener) const {
+void Core::Keyboard::dispatchEvents(Core::Keyboard::Listener &listener) const {
     auto diff = _previous_values ^_values;
     if (!diff) {
         return;

@@ -5,10 +5,10 @@ void Ui::Editor::_BooleanInternal::display(Property &property, Ui::ScreenBuffer 
     screen.buffer[1][Ui::ScreenBuffer::NB_COLS - 1] = property.get() ? 'Y' : 'N';
 }
 
-void Ui::Editor::_BooleanInternal::onKeyPressed(Property &property, Ui::Keyboard::Key key) {
+void Ui::Editor::_BooleanInternal::onKeyPressed(Property &property, Core::Keyboard::Key key) {
     switch (key) {
-        case Ui::Keyboard::UP:
-        case Ui::Keyboard::DOWN:
+        case Core::Keyboard::UP:
+        case Core::Keyboard::DOWN:
             property.set(!property.get());
             break;
         default:
