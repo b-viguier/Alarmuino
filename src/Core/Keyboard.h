@@ -1,6 +1,8 @@
 #ifndef ALARMUINO_KEYBOARD_H
 #define ALARMUINO_KEYBOARD_H
 
+#include <Utils/Bitset.h>
+
 namespace Core {
 
     class Keyboard {
@@ -9,20 +11,20 @@ namespace Core {
         typedef unsigned int KeySet;
 
         enum Key : KeySet {
-            UP      = 0x01,
-            DOWN    = 0x02,
-            LEFT    = 0x04,
-            RIGHT   = 0x08,
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT,
+
+            // Meta values
+            NB_KEYS,
+            FIRST_KEY = UP,
 
             // Aliases
             ENTER = RIGHT,
             EXIT = LEFT,
             NEXT = DOWN,
             PREV = UP,
-
-            // Meta values
-            FIRST_KEY = UP,
-            LAST_KEY = RIGHT,
         };
 
         struct Listener {
@@ -31,14 +33,13 @@ namespace Core {
             virtual void onKeyReleased(Key key) = 0;
         };
 
-        Core::Keyboard &setState(Key key, bool pressed);
+        void dispatchEvents(Listener &listener);
 
-        void dispatchEvents(Listener &listener) const;
-
+    protected:
+        virtual bool getState(Key key) const = 0;
 
     private:
-        KeySet _values = 0;
-        KeySet _previous_values = 0;
+        Utils::Bitset<NB_KEYS> _values;
     };
 }
 

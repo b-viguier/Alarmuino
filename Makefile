@@ -7,7 +7,7 @@ BOARD_TAG    = uno
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst *,%,$2),$d))
 
 # Override sources detection to include subdirectories
-LOCAL_CPP_SRCS = main_arduino.cpp $(call rwildcard,src/,*.cpp)
+LOCAL_CPP_SRCS = $(call rwildcard,src/Arch/avr/,*.cpp) $(call rwildcard,src/App/,*.cpp) $(call rwildcard,src/Core/,*.cpp) $(call rwildcard,src/Ui/,*.cpp) $(call rwildcard,src/Utils/,*.cpp)
 
 # Include local headers
 CPPFLAGS += -I./src

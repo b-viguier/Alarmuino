@@ -6,6 +6,7 @@
 #include <Ui/SensorPage.h>
 
 #include <App/Alarmuino.h>
+#include <Arch/avr/Keyboard.h>
 
 // Sensors
 Core::Sensor door1("Door 1");
@@ -20,14 +21,8 @@ Ui::SensorPage door2Page(door2);
 App::Alarmuino application(sensors);
 
 Ui::ScreenBuffer screen;
-Core::Keyboard keyboard;
+Arch::avr::Keyboard keyboard;
 
-enum Button {
-    UP = 1,
-    DOWN = 2,
-    LEFT = 3,
-    RIGHT = 4,
-};
 
 enum Lcd {
     RS = 7,
@@ -45,21 +40,10 @@ void setup() {
             .addSensor(door1Page)
             .addSensor(door2Page);
 
-    pinMode(Button::UP, INPUT_PULLUP);
-    pinMode(Button::DOWN, INPUT_PULLUP);
-    pinMode(Button::LEFT, INPUT_PULLUP);
-    pinMode(Button::RIGHT, INPUT_PULLUP);
-
     lcd.begin(Ui::ScreenBuffer::NB_COLS, Ui::ScreenBuffer::NB_ROWS);
 }
 
 void loop() {
-
-    keyboard
-            .setState(Core::Keyboard::UP, digitalRead(Button::UP) == LOW)
-            .setState(Core::Keyboard::DOWN, digitalRead(Button::DOWN) == LOW)
-            .setState(Core::Keyboard::LEFT, digitalRead(Button::LEFT) == LOW)
-            .setState(Core::Keyboard::RIGHT, digitalRead(Button::RIGHT) == LOW);
 
     // Display
     application.process(keyboard, screen);

@@ -5,6 +5,7 @@
 #include <Ui/SensorPage.h>
 
 #include <App/Alarmuino.h>
+#include <Arch/x86/Keyboard.h>
 
 class TriggerableSensor : public Core::Sensor {
 public:
@@ -59,7 +60,7 @@ int main() {
 
     Ui::ScreenBuffer screen;
     int input;
-    Core::Keyboard keyboard;
+    Arch::x86::Keyboard keyboard;
 
     for (;;) {
 
@@ -75,11 +76,7 @@ int main() {
                 break;
         }
 
-        keyboard
-                .setState(Core::Keyboard::UP, input == KEY_UP)
-                .setState(Core::Keyboard::DOWN, input == KEY_DOWN)
-                .setState(Core::Keyboard::LEFT, input == KEY_LEFT)
-                .setState(Core::Keyboard::RIGHT, input == KEY_RIGHT);
+        keyboard.setCurrentKey(input);
 
         application.process(keyboard, screen);
 
