@@ -15,3 +15,7 @@ void Core::Keyboard::dispatchEvents(Core::Keyboard::Listener &listener) {
         }
     }
 }
+
+Core::Keyboard::Keyboard() : _values() {
+
+}

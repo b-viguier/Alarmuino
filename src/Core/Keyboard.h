@@ -8,9 +8,10 @@ namespace Core {
     class Keyboard {
 
     public:
-        typedef unsigned int KeySet;
 
-        enum Key : KeySet {
+        Keyboard();
+
+        enum Key {
             UP,
             DOWN,
             LEFT,
