@@ -40,7 +40,7 @@ int main() {
         mvaddch(row, 0, '|');
         mvaddch(row, Ui::ScreenBuffer::NB_COLS + 1, '|');
     }
-    move(Ui::ScreenBuffer::NB_ROWS + 2, 0);
+    move(Ui::ScreenBuffer::NB_ROWS + 3, 0);
     printw("q: quit\nt: trigger");
 
     // Sensors
@@ -73,6 +73,8 @@ int main() {
             case 't':
                 door2.triggered = door1.triggered == !door2.triggered;
                 door1.triggered = !door1.triggered;
+                mvaddch(Ui::ScreenBuffer::NB_ROWS + 2, 0, door1.triggered ? '1':'0');
+                addch(door2.triggered ? '1':'0');
                 break;
         }
 
