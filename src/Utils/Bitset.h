@@ -24,14 +24,42 @@ namespace Utils {
             _buffer[chunkIndex(index)] ^= chunkBitmask(index);
         }
 
-        inline constexpr unsigned int count() const {
+        inline constexpr unsigned int size() const {
             return Size;
+        }
+
+        unsigned int count() const {
+            unsigned int count = 0;
+            // Counting bits set, Brian Kernighan's way
+            for (const char *chunk = _buffer, *chunk_end = _buffer + NB_CHUNKS; chunk < chunk_end; ++chunk) {
+                char value = *chunk;
+                for (; value; ++count) {
+                    value &= value - 1;
+                }
+            }
+
+            return count;
+        }
+
+        bool any() const {
+            for (const char *chunk = _buffer, *chunk_end = _buffer + NB_CHUNKS; chunk < chunk_end; ++chunk) {
+                if(*chunk) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        inline bool none() const {
+            return !any();
         }
 
     private:
 
         enum {
             CHAR_BIT = 8,
+            NB_CHUNKS = Size / CHAR_BIT + (Size % CHAR_BIT ? 1 : 0),
         };
 
         inline unsigned int chunkIndex(unsigned int index) const {
@@ -42,7 +70,7 @@ namespace Utils {
             return (char) 1 << (index % CHAR_BIT);
         }
 
-        char _buffer[Size / CHAR_BIT + (Size % CHAR_BIT ? 1 : 0)];
+        char _buffer[NB_CHUNKS];
     };
 }
 
