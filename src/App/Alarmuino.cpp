@@ -9,23 +9,42 @@ struct App::Alarmuino::Internal : public Core::SensorsGroup::Listener {
     explicit Internal(App::Alarmuino &app) : app(app) {}
 
     void onSensorTriggered(const Core::Sensor &sensor) final {
-        if (!app._alertPage.hasFocus()) {
-            app._focus.enableAutoFocusOut(false);
-            app._alertPage.setFocus(app._focus);
-        }
+        changeState(ALERT);
     }
 
     void onSensorReleased(const Core::Sensor &sensor) final {
-        if (app._alertPage.hasFocus() && !app._sensors.isTriggered()) {
-            app._focus.enableAutoFocusOut(true);
-            app._focus.pop();
+        if (!app._sensors.isTriggered()) {
+            changeState(IDLE);
         }
+    }
+
+    template<class State>
+    static void registerState(Alarmuino &app, Alarmuino::Status status) {
+        app._enterStateFunction[status] = State::enter;
+        app._leaveStateFunction[status] = State::leave;
+    }
+
+    void changeState(Alarmuino::Status status) {
+        if (status == app._status) {
+            return;
+        }
+        app._leaveStateFunction[app._status](app);
+        app._enterStateFunction[app._status = status](app);
     }
 };
 
 App::Alarmuino::Alarmuino(Core::SensorsGroup &sensors)
-        : _homePage("Welcome"), _sensorsMenu("Sensors"), _alertPage("!! Alert !!"), _focus(_homePage),
-          _sensors(sensors) {
+        : _homePage("Welcome"),
+          _edit_enabled("Activate", *this, &Alarmuino::isEnabled, &Alarmuino::enable),
+          _sensorsMenu("Sensors"),
+          _alertPage("!! Alert !!", *this, &Alarmuino::isEnabled, &Alarmuino::enable),
+          _focus(_homePage),
+          _sensors(sensors), _status(DISABLED) {
+    Internal::registerState<DisabledState>(*this, DISABLED);
+    Internal::registerState<IdleState>(*this, IDLE);
+    Internal::registerState<AlertState>(*this, ALERT);
+
+    _homePage.addPage(_edit_enabled);
     _homePage.addPage(_sensorsMenu);
 }
 
@@ -39,7 +58,9 @@ void App::Alarmuino::process(Core::Keyboard &keyboard, Ui::ScreenBuffer &screenB
     Internal internal(*this);
 
     // Sensors
-    _sensors.dispatchEvents(internal);
+    if (isEnabled()) {
+        _sensors.dispatchEvents(internal);
+    }
 
     // Inputs
     keyboard.dispatchEvents(_focus);
@@ -47,4 +68,36 @@ void App::Alarmuino::process(Core::Keyboard &keyboard, Ui::ScreenBuffer &screenB
     // Display
     memset(screenBuffer.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
     _focus.display(screenBuffer);
+}
+
+void App::Alarmuino::enable(bool enable) {
+    Internal(*this).changeState(enable ? IDLE : DISABLED);
+}
+
+bool App::Alarmuino::isEnabled() const {
+    return _status != DISABLED;
+}
+
+void App::Alarmuino::DisabledState::enter(App::Alarmuino &) {
+
+}
+
+void App::Alarmuino::DisabledState::leave(App::Alarmuino &) {
+
+}
+
+void App::Alarmuino::IdleState::enter(App::Alarmuino &app) {
+    app._sensors.reset();
+}
+
+void App::Alarmuino::IdleState::leave(App::Alarmuino &) {
+
+}
+
+void App::Alarmuino::AlertState::enter(App::Alarmuino &app) {
+    app._focus.reset(app._alertPage);
+}
+
+void App::Alarmuino::AlertState::leave(App::Alarmuino &app) {
+    app._focus.reset(app._homePage);
 }
