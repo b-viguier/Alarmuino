@@ -2,6 +2,7 @@
 #include <LiquidCrystal.h>
 
 #include <Core/Sensor.h>
+#include <Core/SensorsGroup.h>
 #include <Ui/ScreenBuffer.h>
 #include <Ui/SensorPage.h>
 
@@ -11,7 +12,7 @@
 // Sensors
 Core::Sensor door1("Door 1");
 Core::Sensor door2("Door 2");
-Utils::ArrayFixedSize<Core::Sensor, 2>
+Core::SensorsGroup
         sensors(door1, door2);
 
 // Pages
@@ -37,8 +38,8 @@ LiquidCrystal lcd(Lcd::RS, Lcd::ENABLE, Lcd::D4, Lcd::D5, Lcd::D6, Lcd::D7);
 
 void setup() {
     application
-            .addSensor(door1Page)
-            .addSensor(door2Page);
+            .addSensorPage(door1Page)
+            .addSensorPage(door2Page);
 
     lcd.begin(Ui::ScreenBuffer::NB_COLS, Ui::ScreenBuffer::NB_ROWS);
 }

@@ -4,6 +4,7 @@
 #include <Ui/MenuPage.h>
 #include <Ui/Focus.h>
 #include <Core/Sensor.h>
+#include <Core/SensorsGroup.h>
 
 namespace Ui {
     class SensorPage;
@@ -18,13 +19,14 @@ namespace App {
     class Alarmuino {
     public:
 
-        explicit Alarmuino(Utils::Array<Core::Sensor> &sensors);
+        explicit Alarmuino(Core::SensorsGroup &sensors);
 
-        Alarmuino &addSensor(Ui::SensorPage &page);
+        Alarmuino &addSensorPage(Ui::SensorPage &page);
 
         void process(Core::Keyboard &keyboard, Ui::ScreenBuffer &screenBuffer);
 
     private:
+        struct Internal;
         //GUI
         Ui::MenuPage _homePage;
         Ui::MenuPage _sensorsMenu;
@@ -32,7 +34,7 @@ namespace App {
         Ui::Focus _focus;
 
         //Core
-        Utils::Array<Core::Sensor> &_sensors;
+        Core::SensorsGroup &_sensors;
     };
 
 }

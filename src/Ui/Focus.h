@@ -31,8 +31,11 @@ namespace Ui {
 
         void onKeyReleased(Core::Keyboard::Key key) final;
 
+        void enableAutoFocusOut(bool enable);
+
     private:
         Utils::ArrayFixedCapacity<Ui::Page,5> _stack;
+        bool _autoFocusOut = true;
     };
 
 }

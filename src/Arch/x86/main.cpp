@@ -46,7 +46,7 @@ int main() {
     // Sensors
     TriggerableSensor door1("Door 1");
     TriggerableSensor door2("Door 2");
-    Utils::ArrayFixedSize<Core::Sensor, 2>
+    Core::SensorsGroup
             sensors(door1, door2);
 
     // Pages
@@ -55,8 +55,8 @@ int main() {
 
     App::Alarmuino application(sensors);
     application
-            .addSensor(door1Page)
-            .addSensor(door2Page);
+            .addSensorPage(door1Page)
+            .addSensorPage(door2Page);
 
     Ui::ScreenBuffer screen;
     int input;

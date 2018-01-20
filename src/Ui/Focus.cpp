@@ -22,7 +22,7 @@ void Ui::Focus::display(Ui::ScreenBuffer &screen) {
 
 void Ui::Focus::onKeyPressed(Core::Keyboard::Key key) {
 
-    if (key == Core::Keyboard::EXIT) {
+    if (_autoFocusOut && key == Core::Keyboard::EXIT) {
         pop();
         return;
     }
@@ -32,4 +32,8 @@ void Ui::Focus::onKeyPressed(Core::Keyboard::Key key) {
 
 void Ui::Focus::onKeyReleased(Core::Keyboard::Key key) {
     current().onKeyReleased(key);
+}
+
+void Ui::Focus::enableAutoFocusOut(bool enable) {
+    _autoFocusOut = enable;
 }
