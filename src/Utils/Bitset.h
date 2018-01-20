@@ -55,6 +55,13 @@ namespace Utils {
             return !any();
         }
 
+        Bitset<Size>& reset() {
+            for (char *chunk = _buffer, *chunk_end = _buffer + NB_CHUNKS; chunk < chunk_end; ++chunk) {
+                *chunk = 0;
+            }
+            return *this;
+        }
+
     private:
 
         enum {

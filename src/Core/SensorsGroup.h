@@ -26,6 +26,8 @@ namespace Core {
 
         unsigned int isTriggered() const;
 
+        void reset();
+
     private:
         enum {
             NB_MAX_SENSORS = 5,

@@ -21,3 +21,7 @@ void Core::SensorsGroup::dispatchEvents(Core::SensorsGroup::Listener &listener) 
 unsigned int Core::SensorsGroup::isTriggered() const {
     return _states.any();
 }
+
+void Core::SensorsGroup::reset() {
+    _states.reset();
+}
