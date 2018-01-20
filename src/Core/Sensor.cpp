@@ -1,7 +1,7 @@
 #include "Sensor.h"
 
 Core::Sensor::Sensor(const char *name)
-        : _name(name), _enabled(false) {
+        : _name(name), _enabled(true) {
 }
 
 bool Core::Sensor::isEnabled() const {
