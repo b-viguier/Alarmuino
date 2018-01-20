@@ -2,7 +2,7 @@
 #include <Ui/Page.h>
 
 Ui::Focus::Focus(Ui::Page &page) {
-    page.setFocus(*this);
+    reset(page);
 }
 
 void Ui::Focus::push(Ui::Page &page) {
@@ -36,4 +36,9 @@ void Ui::Focus::onKeyReleased(Core::Keyboard::Key key) {
 
 void Ui::Focus::enableAutoFocusOut(bool enable) {
     _autoFocusOut = enable;
+}
+
+void Ui::Focus::reset(Ui::Page &page) {
+    _stack.reset();
+    page.setFocus(*this);
 }

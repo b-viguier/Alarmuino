@@ -13,6 +13,11 @@ namespace Ui {
     public:
         explicit Focus(Page &page);
 
+        explicit Focus(const Focus&) = delete;
+        Focus& operator=(const Focus&) = delete;
+
+        void reset(Page &page);
+
         void push(Page &page);
 
         void pop();
