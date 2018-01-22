@@ -21,3 +21,10 @@ make
 ```
 make upload
 ```
+
+To open serial monitor:
+```
+make monitor
+```
+It's a `screen` session, so to exit you can use `Ctrl-A`, `:` then type `quit`.
+You can also use `detach`, and then `screen -r` to resume last session.
