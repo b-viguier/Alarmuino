@@ -13,12 +13,18 @@ set(SOURCE_FILES_ARCH src/Arch/x86/main.cpp src/Arch/x86/Keyboard.cpp src/Arch/x
 set(SOURCE_FILES ${SOURCE_FILES_UTILS} ${SOURCE_FILES_CORE} ${SOURCE_FILES_UI} ${SOURCE_FILES_APP} ${SOURCE_FILES_ARCH})
 include_directories("src")
 
+#set(CMAKE_VERBOSE_MAKEFILE ON)
+
+# Alarmuino executable
+add_executable(Alarmuino ${SOURCE_FILES})
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
-
-add_executable(Alarmuino ${SOURCE_FILES})
-
 target_link_libraries(Alarmuino ${CURSES_LIBRARIES})
-
 # Enable warnings
 target_compile_options(Alarmuino PRIVATE "-Wall")
+
+
+# Tests
+set(TEST_SOURCE_FILES tests/Test.cpp tests/Test.h ${SOURCE_FILES_UTILS} tests/main.cpp tests/Utils/Bitset.cpp)
+add_executable(Tests ${TEST_SOURCE_FILES})
+target_compile_options(Tests PRIVATE "-Wall")
