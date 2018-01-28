@@ -8,6 +8,8 @@ namespace Utils {
     class Bitset {
     public:
 
+        Bitset() : _buffer{} {}
+
         void set(unsigned int index, bool value) {
             char &chunk = _buffer[chunkIndex(index)];
 
