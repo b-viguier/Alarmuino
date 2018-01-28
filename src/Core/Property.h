@@ -16,6 +16,9 @@ namespace Core {
         virtual void set(T value) = 0;
 
         virtual bool isReadOnly() const = 0;
+
+    protected:
+        ~Property() = default;
     };
 
 
