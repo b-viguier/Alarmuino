@@ -36,7 +36,7 @@ Test::Suite bitset = {
                 assert.isFalse(b.get(i));
             }
 
-            b.set(0,false);
+            b.set(0, false);
             assert.isTrue(b.none());
         }),
 
@@ -62,6 +62,14 @@ Test::Suite bitset = {
 
             b.reset();
             assert.isTrue(b.none());
+        }),
+
+        Test("[Bitset] index out of bound", [](Test &assert) {
+            Utils::Bitset<3> b;
+
+            assert.throwsException([b]() { b.get(4); });
+            assert.throwsException([&b]() { b.set(4, true); });
+            assert.throwsException([&b]() { b.flip(4); });
         }),
 };
 

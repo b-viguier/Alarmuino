@@ -4,7 +4,15 @@
 class Test {
 public:
 
-    typedef void (*TestFunction)(Test&);
+    struct AssertException {
+        const char *function;
+        const char *file;
+        int line;
+        const char *expression;
+    };
+
+    typedef void (*TestFunction)(Test &);
+
     typedef Test Suite[];
 
     Test(const char *name, TestFunction testFunction);
@@ -22,6 +30,16 @@ public:
     template<typename T1, typename T2>
     void areEqual(const T1 &v1, const T2 &v2) {
         assert(v1 == v2);
+    };
+
+    template<typename Callable, typename Exception = AssertException>
+    void throwsException(Callable c) {
+        try {
+            c();
+            assert(false);
+        } catch (Exception &e) {
+            assert(true);
+        }
     };
 
 private:

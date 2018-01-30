@@ -1,6 +1,7 @@
 #ifndef ALARMUINO_BITSET_H
 #define ALARMUINO_BITSET_H
 
+#include <Utils/Debug.h>
 
 namespace Utils {
 
@@ -11,6 +12,7 @@ namespace Utils {
         Bitset() : _buffer{} {}
 
         void set(unsigned int index, bool value) {
+            DBG_ASSERT(index < size());
             char &chunk = _buffer[chunkIndex(index)];
 
             chunk = value ?
@@ -19,10 +21,12 @@ namespace Utils {
         }
 
         inline bool get(unsigned int index) const {
+            DBG_ASSERT(index < size());
             return _buffer[chunkIndex(index)] & chunkBitmask(index);
         }
 
         inline void flip(unsigned int index) {
+            DBG_ASSERT(index < size());
             _buffer[chunkIndex(index)] ^= chunkBitmask(index);
         }
 

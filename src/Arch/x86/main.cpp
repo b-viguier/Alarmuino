@@ -7,6 +7,15 @@
 #include <App/Alarmuino.h>
 #include <Arch/x86/Keyboard.h>
 
+
+#include <Utils/Debug.h>
+
+#if !NDEBUG
+
+#include <assert.h>
+
+#endif
+
 class TriggerableSensor : public Core::Sensor {
 public:
     using Core::Sensor::Sensor;
@@ -19,6 +28,19 @@ public:
 };
 
 int main() {
+
+#if !NDEBUG
+    class Debug : public Utils::Debug {
+    public:
+        void assertion(bool value, const char *function, const char *file, int line, const char *expression) {
+            if (!value) {
+                __assert_rtn(function, file, line, expression);
+            }
+        }
+    } dbg;
+    Utils::Debug::registerInstance(dbg);
+#endif
+
     // Screen Init
     WINDOW *wnd = initscr();
     cbreak();
@@ -73,8 +95,8 @@ int main() {
             case 't':
                 door2.triggered = door1.triggered == !door2.triggered;
                 door1.triggered = !door1.triggered;
-                mvaddch(Ui::ScreenBuffer::NB_ROWS + 2, 0, door1.triggered ? '1':'0');
-                addch(door2.triggered ? '1':'0');
+                mvaddch(Ui::ScreenBuffer::NB_ROWS + 2, 0, door1.triggered ? '1' : '0');
+                addch(door2.triggered ? '1' : '0');
                 break;
         }
 
