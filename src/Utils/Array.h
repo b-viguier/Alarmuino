@@ -1,6 +1,8 @@
 #ifndef ALARMUINO_ARRAY_H
 #define ALARMUINO_ARRAY_H
 
+#include <Utils/Debug.h>
+
 namespace Utils {
 
     /**
@@ -16,6 +18,8 @@ namespace Utils {
         virtual T &operator[](unsigned int i) = 0;
 
         virtual const T &operator[](unsigned int i) const = 0;
+
+        virtual ~Array() = default;
     };
 
     template<typename T, unsigned short Size>
@@ -28,10 +32,12 @@ namespace Utils {
         }
 
         inline T &operator[](unsigned int i) final {
+            DBG_ASSERT(i < size());
             return *_buffer[i];
         }
 
         inline const T &operator[](unsigned int i) const final {
+            DBG_ASSERT(i < size());
             return *_buffer[i];
         }
 
@@ -66,18 +72,22 @@ namespace Utils {
         }
 
         inline T &operator[](unsigned int i) final {
+            DBG_ASSERT(i < size());
             return *_buffer[i];
         }
 
         inline const T &operator[](unsigned int i) const final {
+            DBG_ASSERT(i < size());
             return *_buffer[i];
         }
 
         void push(T &elmt) {
+            DBG_ASSERT(size() < Capacity);
             _buffer[_size++] = &elmt;
         }
 
         void pop() {
+            DBG_ASSERT(size() > 0);
             --_size;
         }
 
