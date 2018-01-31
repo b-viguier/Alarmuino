@@ -24,7 +24,7 @@ namespace Core {
 
         void dispatchEvents(Listener &listener);
 
-        unsigned int isTriggered() const;
+        bool isTriggered() const;
 
         void reset();
 
