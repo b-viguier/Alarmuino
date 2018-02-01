@@ -9,6 +9,12 @@
 #include <App/Alarmuino.h>
 #include <Arch/avr/Keyboard.h>
 
+#include <Arch/avr/Debug.h>
+
+#if !NDEBUG
+Arch::avr::Debug dbg;
+#endif
+
 // Sensors
 Core::Sensor door1("Door 1");
 Core::Sensor door2("Door 2");
@@ -37,6 +43,12 @@ enum Lcd {
 LiquidCrystal lcd(Lcd::RS, Lcd::ENABLE, Lcd::D4, Lcd::D5, Lcd::D6, Lcd::D7);
 
 void setup() {
+
+#if !NDEBUG
+    dbg.init();
+    Utils::Debug::registerInstance(dbg);
+#endif
+
     application
             .addSensorPage(door1Page)
             .addSensorPage(door2Page);

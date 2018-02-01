@@ -12,6 +12,9 @@ LOCAL_CPP_SRCS = $(call rwildcard,src/Arch/avr/,*.cpp) $(call rwildcard,src/App/
 # Include local headers
 CPPFLAGS += -I./src
 
+# Disable Debug
+# CPPFLAGS += -DNDEBUG
+
 # Use recent version of avr-g++ (OSX Path)
 AVR_TOOLS_DIR = /usr/local
 

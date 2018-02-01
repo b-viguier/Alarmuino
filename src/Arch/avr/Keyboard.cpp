@@ -4,7 +4,7 @@
 
 namespace {
     enum Button {
-        UP = 1,
+        UP = 5,
         DOWN = 2,
         LEFT = 3,
         RIGHT = 4,
