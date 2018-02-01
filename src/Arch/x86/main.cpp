@@ -16,27 +16,47 @@
 
 #endif
 
-class TriggerableSensor : public Core::Sensor {
-public:
-    using Core::Sensor::Sensor;
+namespace {
 
-    bool triggered = false;
+    enum {
+        ROW_TRIGGER = Ui::ScreenBuffer::NB_ROWS + 2,
+        ROW_HELP,
+        ROW_LOGS,
+    };
 
-    bool isTriggered() const final {
-        return triggered;
-    }
-};
+    class TriggerableSensor : public Core::Sensor {
+    public:
+        using Core::Sensor::Sensor;
+
+        bool triggered = false;
+
+        bool isTriggered() const final {
+            return triggered;
+        }
+    };
+}
 
 int main() {
 
 #if !NDEBUG
     class Debug : public Utils::Debug {
     public:
-        void assertion(bool value, const char *function, const char *file, int line, const char *expression) {
+        void assertion(bool value, const char *function, const char *file, int line, const char *expression) override {
             if (!value) {
                 __assert_rtn(function, file, line, expression);
             }
         }
+
+        void log(const char *msg) override {
+            mvprintw(ROW_LOGS, 0, "[%u] %s          ", count++, msg);
+        }
+
+        void checkpoint(const char *function, const char *file, int line) override {
+            mvprintw(ROW_LOGS, 0, "[%u] %s (%s:%d)         ", count++, function, file, line);
+        }
+
+    private:
+        unsigned int count = 0;
     } dbg;
     Utils::Debug::registerInstance(dbg);
 #endif
@@ -62,8 +82,8 @@ int main() {
         mvaddch(row, 0, '|');
         mvaddch(row, Ui::ScreenBuffer::NB_COLS + 1, '|');
     }
-    move(Ui::ScreenBuffer::NB_ROWS + 3, 0);
-    printw("q: quit\nt: trigger");
+
+    mvprintw(ROW_HELP, 0, "q: quit\tt: trigger");
 
     // Sensors
     TriggerableSensor door1("Door 1");
@@ -95,7 +115,7 @@ int main() {
             case 't':
                 door2.triggered = door1.triggered == !door2.triggered;
                 door1.triggered = !door1.triggered;
-                mvaddch(Ui::ScreenBuffer::NB_ROWS + 2, 0, door1.triggered ? '1' : '0');
+                mvaddch(ROW_TRIGGER, 0, door1.triggered ? '1' : '0');
                 addch(door2.triggered ? '1' : '0');
                 break;
         }
