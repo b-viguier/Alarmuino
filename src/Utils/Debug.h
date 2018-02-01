@@ -24,7 +24,7 @@ namespace Utils {
 
         virtual void log(const char *msg) {};
 
-        static void registerInstance(Debug &instance);
+        static bool registerInstance(Debug &instance);
 
         static Debug &instance();
 

@@ -7,8 +7,10 @@ namespace {
 }
 Utils::Debug *Utils::Debug::_instance = &defaultDbg;
 
-void Utils::Debug::registerInstance(Utils::Debug &instance) {
+bool Utils::Debug::registerInstance(Utils::Debug &instance) {
     _instance = &instance;
+
+    return true;
 }
 
 Utils::Debug &Utils::Debug::instance() {
