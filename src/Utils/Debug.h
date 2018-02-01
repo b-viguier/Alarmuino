@@ -23,6 +23,8 @@ namespace Utils {
         virtual void checkpoint(const char *function, const char *file, int line) {}
 
         virtual void log(const char *msg) {};
+        virtual void log(unsigned int value) {};
+        virtual void log(int value) {};
 
         static bool registerInstance(Debug &instance);
 

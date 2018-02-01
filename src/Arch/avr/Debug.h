@@ -33,12 +33,25 @@ namespace Arch {
                 }
             }
 
-            void log(const char *msg) override {
+            template<typename T>
+            void print(T value) {
                 Serial.print("[");
                 Serial.print(count++);
                 Serial.print("] ");
-                Serial.println(msg);
+                Serial.println(value);
                 Serial.flush();
+            }
+
+            void log(const char *msg) override {
+                print(msg);
+            }
+
+            void log(unsigned int value) override {
+                print(value);
+            }
+
+            void log(int value) override {
+                print(value);
             }
 
             void checkpoint(const char *function, const char *file, int line) override {
