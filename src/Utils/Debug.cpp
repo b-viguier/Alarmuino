@@ -2,8 +2,10 @@
 
 #include "Debug.h"
 
-
-Utils::Debug *Utils::Debug::_instance = nullptr;
+namespace {
+    Utils::Debug defaultDbg;
+}
+Utils::Debug *Utils::Debug::_instance = &defaultDbg;
 
 void Utils::Debug::registerInstance(Utils::Debug &instance) {
     _instance = &instance;
