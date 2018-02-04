@@ -7,14 +7,7 @@
 #include <App/Alarmuino.h>
 #include <Arch/x86/Keyboard.h>
 
-
-#include <Utils/Debug.h>
-
-#if !NDEBUG
-
-#include <assert.h>
-
-#endif
+#include <Arch/x86/Debug.h>
 
 namespace {
 
@@ -38,26 +31,8 @@ namespace {
 
 int main() {
 
-#if !NDEBUG
-    class Debug : public Utils::Debug {
-    public:
-        void assertion(bool value, const char *function, const char *file, int line, const char *expression) override {
-            if (!value) {
-                __assert_rtn(function, file, line, expression);
-            }
-        }
-
-        void log(const char *msg) override {
-            mvprintw(ROW_LOGS, 0, "[%u] %s          ", count++, msg);
-        }
-
-        void checkpoint(const char *function, const char *file, int line) override {
-            mvprintw(ROW_LOGS, 0, "[%u] %s (%s:%d)         ", count++, function, file, line);
-        }
-
-    private:
-        unsigned int count = 0;
-    } dbg;
+#if DEBUGGER_ENABLED
+    Arch::x86::Debug<ROW_LOGS> dbg;
     Utils::Debug::registerInstance(dbg);
 #endif
 

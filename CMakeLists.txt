@@ -8,7 +8,7 @@ set(SOURCE_FILES_UTILS src/Utils/Array.h src/Utils/Bitset.h src/Utils/Debug.cpp 
 set(SOURCE_FILES_CORE src/Core/Sensor.h src/Core/Sensor.cpp src/Core/Property.h src/Core/Keyboard.cpp src/Core/Keyboard.h src/Core/SensorsGroup.cpp src/Core/SensorsGroup.h)
 set(SOURCE_FILES_UI src/Ui/ScreenBuffer.h src/Ui/Page.cpp src/Ui/Page.h src/Ui/MenuPage.cpp src/Ui/MenuPage.h src/Ui/SensorPage.cpp src/Ui/SensorPage.h src/Ui/Focus.cpp src/Ui/Focus.h src/Ui/Editor/Boolean.cpp src/Ui/Editor/Boolean.h src/Ui/Editor/Integer.cpp src/Ui/Editor/Integer.h)
 set(SOURCE_FILES_APP src/App/Alarmuino.cpp src/App/Alarmuino.h)
-set(SOURCE_FILES_ARCH src/Arch/x86/main.cpp src/Arch/x86/Keyboard.cpp src/Arch/x86/Keyboard.h)
+set(SOURCE_FILES_ARCH src/Arch/x86/main.cpp src/Arch/x86/Keyboard.cpp src/Arch/x86/Keyboard.h src/Arch/x86/Debug.h)
 
 set(SOURCE_FILES ${SOURCE_FILES_UTILS} ${SOURCE_FILES_CORE} ${SOURCE_FILES_UI} ${SOURCE_FILES_APP} ${SOURCE_FILES_ARCH})
 include_directories("src")

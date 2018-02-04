@@ -9,7 +9,7 @@ namespace Arch {
         class Keyboard : public Core::Keyboard {
 
         public:
-            Keyboard();
+            void setup();
 
         protected:
             bool getState(Key key) const override;

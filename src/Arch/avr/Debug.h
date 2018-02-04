@@ -1,21 +1,15 @@
 #ifndef ALARMUINO_AVR_DEBUG_H
 #define ALARMUINO_AVR_DEBUG_H
 
-#if !NDEBUG
-
 #include <Utils/Debug.h>
+
+#if DEBUGGER_ENABLED
 
 namespace Arch {
     namespace avr {
 
         class Debug : public Utils::Debug {
         public:
-
-            void init() {
-                Serial.begin(9600);
-                Serial.println("Debugger Started");
-                Serial.flush();
-            }
 
             void assertion(bool value, const char *function, const char *file, int line, const char *expression) override {
                 if (!value) {
@@ -68,6 +62,13 @@ namespace Arch {
                 Serial.flush();
             }
 
+        protected:
+            void setup() {
+                Serial.begin(9600);
+                Serial.println("Debugger Started");
+                Serial.flush();
+            }
+
         private:
             unsigned int count = 0;
         };
@@ -76,4 +77,4 @@ namespace Arch {
 
 #endif
 
-#endif //ALARMUINO_DEBUG_H
+#endif //ALARMUINO_AVR_DEBUG_H

@@ -26,7 +26,7 @@ bool Arch::avr::Keyboard::getState(Core::Keyboard::Key key) const {
     }
 }
 
-Arch::avr::Keyboard::Keyboard() {
+void Arch::avr::Keyboard::setup() {
     pinMode(Button::UP, INPUT_PULLUP);
     pinMode(Button::DOWN, INPUT_PULLUP);
     pinMode(Button::LEFT, INPUT_PULLUP);

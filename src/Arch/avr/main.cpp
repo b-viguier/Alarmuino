@@ -11,7 +11,7 @@
 
 #include <Arch/avr/Debug.h>
 
-#if !NDEBUG
+#if DEBUGGER_ENABLED
 Arch::avr::Debug dbg;
 #endif
 
@@ -44,10 +44,11 @@ LiquidCrystal lcd(Lcd::RS, Lcd::ENABLE, Lcd::D4, Lcd::D5, Lcd::D6, Lcd::D7);
 
 void setup() {
 
-#if !NDEBUG
-    dbg.init();
+#if DEBUGGER_ENABLED
     Utils::Debug::registerInstance(dbg);
 #endif
+
+    keyboard.setup();
 
     application
             .addSensorPage(door1Page)
