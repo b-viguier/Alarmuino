@@ -53,7 +53,6 @@ namespace Arch {
                 Serial.print(count++);
                 Serial.print("] ");
                 Serial.print(function);
-                Serial.print(function);
                 Serial.print(" ");
                 Serial.print(" at ");
                 Serial.print(file);
