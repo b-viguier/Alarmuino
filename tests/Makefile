@@ -8,7 +8,7 @@ rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2) $(filter $(subst 
 
 # Override sources detection to include subdirectories
 PROJECT_CPP_SRCS = $(call rwildcard,../src/App/,*.cpp) $(call rwildcard,../src/Core/,*.cpp) $(call rwildcard,../src/Ui/,*.cpp) $(call rwildcard,../src/Utils/,*.cpp)
-TEST_CPP_SRCS = $(call rwildcard,Core/,*.cpp) $(call rwildcard,Utils/,*.cpp)
+TEST_CPP_SRCS = $(call rwildcard,Core/,*.cpp) $(call rwildcard,Utils/,*.cpp) $(call rwildcard,Ui/,*.cpp)
 LOCAL_CPP_SRCS = main_avr.cpp Test.cpp ${PROJECT_CPP_SRCS} ${TEST_CPP_SRCS}
 
 # Include local headers
