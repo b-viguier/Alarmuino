@@ -20,14 +20,16 @@ struct App::Alarmuino::Internal : public Core::SensorsGroup::Listener {
 
     template<class State>
     static void registerState(Alarmuino &app, Alarmuino::Status status) {
-        app._enterStateFunction[status] = State::enter;
-        app._leaveStateFunction[status] = State::leave;
+        app._enterStateFunction[status] = &State::enter;
+        app._leaveStateFunction[status] = &State::leave;
     }
 
     void changeState(Alarmuino::Status status) {
         if (status == app._status) {
             return;
         }
+        DBG_ASSERT(app._leaveStateFunction[app._status] != nullptr);
+        DBG_ASSERT(app._enterStateFunction[status] != nullptr);
         app._leaveStateFunction[app._status](app);
         app._enterStateFunction[app._status = status](app);
     }
@@ -39,7 +41,8 @@ App::Alarmuino::Alarmuino(Core::SensorsGroup &sensors)
           _sensorsMenu("Sensors"),
           _alertPage("!! Alert !!", *this, &Alarmuino::isEnabled, &Alarmuino::enable),
           _focus(_homePage),
-          _sensors(sensors), _status(DISABLED) {
+          _sensors(sensors), _status(DISABLED),
+          _enterStateFunction{}, _leaveStateFunction{} {
     Internal::registerState<DisabledState>(*this, DISABLED);
     Internal::registerState<IdleState>(*this, IDLE);
     Internal::registerState<AlertState>(*this, ALERT);
