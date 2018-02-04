@@ -34,12 +34,15 @@ public:
 
     template<typename Callable, typename Exception = AssertException>
     void throwsException(Callable c) {
+        //Exceptions are not supported on Arduino
+#ifndef ARDUINO
         try {
             c();
             assert(false);
         } catch (Exception &e) {
             assert(true);
         }
+#endif
     };
 
 private:

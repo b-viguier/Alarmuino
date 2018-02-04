@@ -23,6 +23,14 @@ namespace Arch {
                 mvprintw(ROW_LOGS, 0, "[%u] %s          ", count++, msg);
             }
 
+            void log(int value) override {
+                mvprintw(ROW_LOGS, 0, "[%u] %d          ", count++, value);
+            }
+
+            void log(unsigned int value) override {
+                mvprintw(ROW_LOGS, 0, "[%u] %u          ", count++, value);
+            }
+
             void checkpoint(const char *function, const char *file, int line) override {
                 mvprintw(ROW_LOGS, 0, "[%u] %s (%s:%d)         ", count++, function, file, line);
             }

@@ -1,6 +1,6 @@
 #include "Test.h"
 
-#include <iostream>
+#include <Utils/Debug.h>
 
 
 Test *Test::_head = nullptr;
@@ -8,20 +8,20 @@ Test *Test::_head = nullptr;
 void Test::runAll() {
     unsigned int nbTests = 0, nbSuccess = 0;
     for (auto currentTest = _head; currentTest; currentTest = currentTest->_next, ++nbTests) {
-        std::cout << "> " << currentTest->_name << "...\t";
+        DBG_LOG(currentTest->_name);
 
         (*currentTest->_func)(*currentTest);
 
         switch (currentTest->_state) {
             case OK:
                 ++nbSuccess;
-                std::cout << "✅" << std::endl;
+                DBG_LOG("✅");
                 break;
             case UNKNOWN:
-                std::cout << "⁉️" << std::endl;
+                DBG_LOG("⁉️");
                 break;
             case FAILURE:
-                std::cout << "❌" << std::endl;
+                DBG_LOG("❌");
                 break;
         }
     }

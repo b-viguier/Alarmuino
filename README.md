@@ -29,3 +29,10 @@ make monitor
 ```
 It's a `screen` session, so to exit you can use `Ctrl-A`, `:` then type `quit`.
 You can also use `detach`, and then `screen -r` to resume last session.
+
+To launch tests:
+```
+cd tests
+make upload monitor
+```
+:warning: Not all tests are supported on Arduino.

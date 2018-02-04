@@ -27,6 +27,6 @@ target_compile_options(Alarmuino PRIVATE "-Wall")
 # Tests
 set(TEST_SOURCE_FILES_UTILS tests/Utils/Bitset.cpp tests/Utils/Array.cpp)
 set(TEST_SOURCE_FILES_CORE tests/Core/Keyboard.cpp tests/Core/SensorsGroup.cpp tests/Core/Sensor.cpp tests/Core/Property.cpp)
-set(TEST_SOURCE_FILES tests/Test.cpp tests/Test.h tests/main.cpp ${SOURCE_FILES_UTILS} ${TEST_SOURCE_FILES_UTILS} ${SOURCE_FILES_CORE} ${TEST_SOURCE_FILES_CORE})
+set(TEST_SOURCE_FILES tests/Test.cpp tests/Test.h tests/main_x86.cpp ${SOURCE_FILES_UTILS} ${TEST_SOURCE_FILES_UTILS} ${SOURCE_FILES_CORE} ${TEST_SOURCE_FILES_CORE})
 add_executable(Tests ${TEST_SOURCE_FILES})
 target_compile_options(Tests PRIVATE "-Wall")
