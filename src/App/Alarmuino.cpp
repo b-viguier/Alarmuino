@@ -1,7 +1,7 @@
 #include "Alarmuino.h"
 
-#include <string.h>
 #include <Ui/SensorPage.h>
+#include <Utils/Memory.h>
 
 struct App::Alarmuino::Internal : public Core::SensorsGroup::Listener {
     App::Alarmuino &app;
@@ -69,7 +69,7 @@ void App::Alarmuino::process(Core::Keyboard &keyboard, Ui::ScreenBuffer &screenB
     keyboard.dispatchEvents(_focus);
 
     // Display
-    memset(screenBuffer.buffer, ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
+    Utils::Memory::set(&screenBuffer.buffer[0][0], ' ', Ui::ScreenBuffer::NB_COLS * Ui::ScreenBuffer::NB_ROWS);
     _focus.display(screenBuffer);
 }
 

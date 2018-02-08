@@ -1,5 +1,7 @@
 #include "MenuPage.h"
-#include <string.h>
+
+#include <Utils/Memory.h>
+#include <Utils/String.h>
 
 Ui::MenuPage::MenuPage(const char *title) : Page(title), _currentIndex(0) {
 
@@ -14,7 +16,7 @@ Ui::MenuPage &Ui::MenuPage::addPage(Ui::Page &subPage) {
 void Ui::MenuPage::display(Ui::ScreenBuffer &screen) {
     Page::display(screen);
     auto currentTitle = _pages[_currentIndex].title();
-    memcpy(&screen.buffer[1][0], currentTitle, strlen(currentTitle));
+    Utils::Memory::copy(&screen.buffer[1][0], currentTitle, Utils::String::length(currentTitle));
 }
 
 void Ui::MenuPage::onKeyPressed(Core::Keyboard::Key key) {

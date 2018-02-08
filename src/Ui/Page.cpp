@@ -1,14 +1,16 @@
-#include <string.h>
 #include "Page.h"
 #include <Ui/Focus.h>
+#include <Utils/Memory.h>
+#include <Utils/String.h>
 
 Ui::Page::Page(const char *title) {
-    strcpy(_title, title);
+    Utils::String::copy(_title, title);
 }
 
 void Ui::Page::display(Ui::ScreenBuffer &screen) {
-    memcpy(&screen.buffer[0][0], "================", Ui::ScreenBuffer::NB_COLS);
-    memcpy(&screen.buffer[0][(Ui::ScreenBuffer::NB_COLS - strlen(_title)) / 2], _title, strlen(_title));
+    Utils::Memory::copy(&screen.buffer[0][0], "================", Ui::ScreenBuffer::NB_COLS);
+    const auto len = Utils::String::length(_title);
+    Utils::Memory::copy(&screen.buffer[0][(Ui::ScreenBuffer::NB_COLS - len) / 2], _title, len);
 }
 
 void Ui::Page::onKeyPressed(Core::Keyboard::Key key) {
