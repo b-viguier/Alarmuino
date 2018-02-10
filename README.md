@@ -17,6 +17,8 @@ make
 
 ## Build process for Arduino
 
+![Schema](Alarmuino_bb.png)
+
 **Requirements**: [Arduino Makefile](https://github.com/sudar/Arduino-Makefile#requirements) with recent `avr-g++`.
 
 ```
